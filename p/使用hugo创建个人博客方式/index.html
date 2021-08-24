@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='我将在此介绍是如何使用Hugo开发此站点的'><title>使用Hugo创建个人博客方式</title>
+
+<link rel='canonical' href='https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='使用Hugo创建个人博客方式'>
+<meta property='og:description' content='我将在此介绍是如何使用Hugo开发此站点的'>
+<meta property='og:url' content='https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/'>
+<meta property='og:site_name' content='Sherman&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Web' /><meta property='article:published_time' content='2021-08-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-23T00:00:00&#43;00:00'/><meta property='og:image' content='https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/8-23-img8.jpg' />
+<meta name="twitter:title" content="使用Hugo创建个人博客方式">
+<meta name="twitter:description" content="我将在此介绍是如何使用Hugo开发此站点的"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/8-23-img8.jpg' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://ShermanXie1998.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/">
+                <img src="/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/8-23-img8_hu6b55783027d380115166b71d4162847c_176297_800x0_resize_q75_box.jpg"
+                        srcset="/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/8-23-img8_hu6b55783027d380115166b71d4162847c_176297_800x0_resize_q75_box.jpg 800w, /p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/8-23-img8_hu6b55783027d380115166b71d4162847c_176297_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="533" 
+                        loading="lazy"
+                        alt="Featured image of post 使用Hugo创建个人博客方式" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hugo/" >
+                Hugo
+            </a>
+        
+            <a href="/categories/blog/" >
+                Blog
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/">使用Hugo创建个人博客方式</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        我将在此介绍是如何使用Hugo开发此站点的
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 23, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 min read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="引言">引言</h2>
+<p>使用美丽的 Ananke 主题创建一个 Hugo 站点。添加超时和断路器等等，所有这些功能都不必更改应用程序本身的代码。</p>
+<p>此快速入门macOS在示例中使用。有关如何在其他操作系统上安装 Hugo 的说明，请参阅安装。</p>
+<p>建议安装 Git来运行本教程。</p>
+<p>对于其他学习 Hugo 的方法，如书本或视频教程，请参阅外部学习资源页面。</p>
+<h2 id="install-hugo">Install Hugo</h2>
+<p>在 macOS、Windows、Linux、OpenBSD、FreeBSD 以及任何可以运行 Go 编译器工具链的机器上安装 Hugo。</p>
+<ul>
+<li>适用于 x64、i386 和 ARM 架构的 macOS (Darwin)</li>
+<li>Windows</li>
+<li>Linux</li>
+<li>OpenBSD</li>
+<li>FreeBSD</li>
+</ul>
+<hr>
+<h2 id="chocolatey-windows">Chocolatey (Windows)</h2>
+<p>如果您在 Windows 机器上并使用Chocolatey进行包管理，则可以使用以下单行安装 Hugo：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ choco install hugo -confirm
+</code></pre></div><p>或者，如果您需要“扩展”Sass/SCSS 版本：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ choco install hugo-extended -confirm
+</code></pre></div><hr>
+<h2 id="create-a-new-site">Create a New Site</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ hugo new site quickstart
+</code></pre></div><p>创建名为quickstart的文件夹</p>
+<hr>
+<h2 id="add-a-theme">Add a Theme</h2>
+<p>有关要考虑的主题列表，请参阅themes.gohugo.io。本快速入门使用漂亮的Ananke 主题。</p>
+<p>首先，从 GitHub 下载主题并将其添加到您网站的themes目录中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ cd quickstart
+$ git init
+$ git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+</code></pre></div><p>然后，将主题添加到站点配置中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ echo theme = \&#34;ananke\&#34; &gt;&gt; config.toml
+</code></pre></div><hr>
+<h2 id="add-some-content">Add Some Content</h2>
+<p>您可以手动创建内容文件（例如 as content/<!-- raw HTML omitted -->/<!-- raw HTML omitted -->.<!-- raw HTML omitted -->）并在其中提供元数据，但是您可以使用该new命令为您做一些事情（例如添加标题和日期）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">$ hugo new posts/my-first-post.md
+</code></pre></div><p>如果需要，编辑新创建的内容文件，它将以如下内容开头：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">---
+title: &#34;My First Post&#34;
+date: 2019-03-26T08:47:11+01:00
+draft: true
+---
+</code></pre></div><h2 id="start-the-hugo-server">Start the Hugo server</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">$ hugo server -D
+</code></pre></div><h2 id="customize-the-theme">Customize the Theme</h2>
+<p>您的新网站看起来不错，但在向公众发布之前，您需要对其进行一些调整。</p>
+<p>config.toml在文本编辑器中打开：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">baseURL = &#34;https://example.org/&#34;
+languageCode = &#34;en-us&#34;
+title = &#34;My New Hugo Site&#34;
+theme = &#34;ananke&#34;
+</code></pre></div><p>用title更个性化的东西替换上面的内容。此外，如果您已经准备好域，请将baseURL. 请注意，运行本地开发服务器时不需要此值。</p>
+<pre><code class="language-command" data-lang="command">提示：在 Hugo 服务器运行时对站点配置或站点中的任何其他文件进行更改，您将立即在浏览器中看到更改，但您可能需要清除缓存。
+</code></pre><p>有关特定于主题的配置选项，请参阅主题站点。</p>
+<h2 id="原文">原文</h2>
+<ul>
+<li><a class="link" href="https://gohugo.io/getting-started/quick-start/#step-4-add-some-content"  target="_blank" rel="noopener"
+    >Hugo 快速入门</a></li>
+</ul>
+<h2 id="image-share">Image Share</h2>
+<p><img src="https://dashi.veterinerburada.com/Images/8-23-img9.jpg" alt="Photo by Florian Klauer on Unsplash"  /> 
+<img src="https://dashi.veterinerburada.com/Images/8-23-img11.jpg" alt="Photo by Luca Bravo on Unsplash"  /></p>
+<p>相册语法来自 <a class="link" href="https://typlog.com/"  target="_blank" rel="noopener"
+    >Typlog</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/web/">Web</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Sherman's Blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Sherman&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.1.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#引言">引言</a></li>
+    <li><a href="#install-hugo">Install Hugo</a></li>
+    <li><a href="#chocolatey-windows">Chocolatey (Windows)</a></li>
+    <li><a href="#create-a-new-site">Create a New Site</a></li>
+    <li><a href="#add-a-theme">Add a Theme</a></li>
+    <li><a href="#add-some-content">Add Some Content</a></li>
+    <li><a href="#start-the-hugo-server">Start the Hugo server</a></li>
+    <li><a href="#customize-the-theme">Customize the Theme</a></li>
+    <li><a href="#原文">原文</a></li>
+    <li><a href="#image-share">Image Share</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

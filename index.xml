@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Sherman&#39;s Blog</title>
+        <link>https://ShermanXie1998.github.io/</link>
+        <description>Recent content on Sherman&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>UWP上传第三方包的打包方式</title>
+        <link>https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/</link>
+        <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/</guid>
+        <description>&lt;img src="https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post UWP上传第三方包的打包方式" /&gt;&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在阅读本文前,请先确定您使用开发是基于Visual studio 2019的UWP平台.&lt;/p&gt;
+&lt;h2 id=&#34;1创建证书&#34;&gt;1.创建证书&lt;/h2&gt;
+&lt;p&gt;打开你的Package文件,点击publisher的选择证书,然后点击创建新证书.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img1.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;这里只需要输入Publisher Common Name,先不要填,往下看.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img2.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2找到publisher-common-name&#34;&gt;2.找到Publisher Common Name.&lt;/h2&gt;
+&lt;p&gt;首先我们需要打开微软的合作中心,请确保你拥有一个开发者账号,如果没有的话你是进不到这个网页里的.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img3.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;你需要先点击概述,创建新应用或选择你已经创建好需要发布的应用.然后点击产品管理里的产品标识.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img4.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;在此界面上只需要把&amp;quot;包/标识/发行商&amp;quot;里CN后面的一串数字复制,然后再粘贴到Visual Studio内的Publisher Common Name内即可.这样你的信任证书就已经生成了.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3如何进行打包&#34;&gt;3.如何进行打包&lt;/h2&gt;
+&lt;p&gt;首先,你需要点击Project-&amp;gt;项目属性-&amp;gt;Bulid,把Platform target选择到你所需要的平台,开启.Net本地链与优化代码,进行此步骤的原因是要生成用于商店发布的misxupload文件.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img5.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;然后右键你的项目,点击publish-&amp;gt;创建APP package&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img5.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;选择第二个选项,然后登录你的账户后选择你要发布到Microsoft store的Identity.更改你所需的APP版本号与所需平台后即可点击创建.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在此处要注意的是,发布版本只能越来越大,不能在商店上发布一个高版本后再降低版本号.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;另外如果你使用了第三方的依赖,一定要确定可以在你所打包的平台(x86/x64)下可以运行,不然也不会打包成功.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;4上传至商店&#34;&gt;4.上传至商店&lt;/h2&gt;
+&lt;p&gt;在你编译软件的目录内寻找AppPackages的文件,打开后找到后缀为Msixupload的文件.然后回到微软的合作中心页面,在应用程序概述内找到提交-&amp;gt;程序包,然后把你刚生成的Msixupload文件上传上去.这样关于UWP第三方文件的打包与上传就完成了.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;5uwp上架失败因为没有添加隐私策略问题&#34;&gt;5.UWP上架失败因为没有添加隐私策略问题&lt;/h2&gt;
+&lt;p&gt;在使用 UWP 上架之前需要经过微软的审核，在美国很看重个人隐私，因此需要在两个地方都填写上隐私策略。第一个是应用商店里面，第二个是应用程序里面
+如果是个人开发者，我的推荐是在 github 或 gitee 创建一个叫隐私策略的文件，复制这个链接填写在应用商店管理的属性上，请看下图&lt;/p&gt;
+&lt;p&gt;如何写隐私策略请看 win10 uwp 隐私声明 注意修改软件名然后打开代码，在代码里面添加一个叫 PrivacyPolicyURL 的静态属性，将隐私策略放在这个属性，然后写一个文本超链接用于打开&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;    public static class PrivacyPolicy
+    {
+	public static string PrivacyPolicyURL { get; } = &amp;#34;https://github.com/lindexi/UWP/blob/master/uwp/src/%E9%9A%9
+    0%E7%A7%81%E7%AD%96%E7%95%A5/Privacy%20Policy.md&amp;#34;;
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在界面添加超链接&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;   &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;TextBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Hyperlink&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;NavigateUri&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://github.com/lindexi/UWP/blob/master/uwp/src/%E9
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;   %9A%90%E7%A7%81%E7%AD%96%E7%95%A5/Privacy%20Policy.md&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;隐私策略&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Hyperlink&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;TextBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;修改之后请重新上传新的包&lt;/p&gt;
+&lt;p&gt;如果此时发现无法上传新的包，而在认证里面有附加了联系的邮件地址，如文章最后附加的微软给我的信息，可以看到微软告诉我说联系 &lt;a class=&#34;link&#34; href=&#34;mailto:reportapp@microsoft.com&#34; &gt;reportapp@microsoft.com&lt;/a&gt; 邮件&lt;/p&gt;
+&lt;p&gt;可以通过谷歌翻译的方式告诉微软的大佬说我的应用已经更新了，里面填写了隐私声明了。小窍门，即使咱之前已经写过了，也是要给他一点面子，还是说咱改了软件了，感谢你的提示。另外在发邮件的时候记得附加自己应用的 Id 哦，如可以这样写&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;主题: I update my application 9NBLGGH562R2 and please review it
+
+正文:
+
+Hi,
+ 
+My applicaion(App Id: 9NHNXT3Q2X7F) was publish fail and I have changed my app now, and please review it.
+
+Thank you.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;请将 App id 替换为你的应用 Id 如何找到自己的应用 Id 请看下面&lt;/p&gt;
+&lt;p&gt;可以找到应用号&lt;/p&gt;
+&lt;p&gt;下面是微软发给我的信息&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;Please take the following action
+
+We reviewed your submission and identified some changes that are needed before we can publish or update the app. Please make these changes and resubmit your app. For more information, contact reportapp@microsoft.com Please include your app ID so we can act quickly.
+
+App Policies: 10.5.1 Personal Information
+
+Notes To Developer
+
+Because the app accesses personal information, a working link to a privacy policy must be provided.
+Location where privacy policy was missing: 
+Metadata: OK 
+In-product: Needs attention
+ 
+For metadata include the privacy policy URL during app submission under the Properties section in the “Privacy Policy URL” field.
+ 
+For in-product include the privacy policy URL under the settings section.
+ 
+For additional assistance with updating the privacy policy URL, please contact Developer Support via Dev Center or here: http://aka.ms/storesupport
+ 
+Personal information the app accesses includes:
+Photos (Picture gallery)
+Documents (device folders and files)
+Please Note
+
+    Your current certification results might differ from earlier submissions because Microsoft Store policy requirements can change over time. When policies change, we might re-test according to the new requirements regardless of the submission type. Please always rely on your most recent certification results.
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;至于为什么我的图床应用需要写隐私策略?因为我访问了 Photos 文件夹和 Documents 文件夹.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;image-share&#34;&gt;Image Share&lt;/h2&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 66; flex-basis: 160px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/florian-klauer-nptLmg6jqDo-unsplash.jpg&#34; data-size=&#34;667x1000&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/florian-klauer-nptLmg6jqDo-unsplash.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/florian-klauer-nptLmg6jqDo-unsplash_hu595aaf3b3dbbb41af5aed8d3958cc9f9_13854_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/florian-klauer-nptLmg6jqDo-unsplash_hu595aaf3b3dbbb41af5aed8d3958cc9f9_13854_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;667&#34;
+				height=&#34;1000&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;Photo by Florian Klauer on Unsplash&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;Photo by Florian Klauer on Unsplash&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;  &lt;figure style=&#34;flex-grow: 149; flex-basis: 359px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/luca-bravo-alS7ewQ41M8-unsplash.jpg&#34; data-size=&#34;1000x667&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/luca-bravo-alS7ewQ41M8-unsplash.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/luca-bravo-alS7ewQ41M8-unsplash_hu0a3f1163de68d0b9471979ebf0ecf11e_32400_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/luca-bravo-alS7ewQ41M8-unsplash_hu0a3f1163de68d0b9471979ebf0ecf11e_32400_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;1000&#34;
+				height=&#34;667&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;Photo by Luca Bravo on Unsplash&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;Photo by Luca Bravo on Unsplash&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 133; flex-basis: 320px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash.jpg&#34; data-size=&#34;1000x750&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash_hu45a5e3ad5e058da6a00650ed8fd40bea_15530_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash_hu45a5e3ad5e058da6a00650ed8fd40bea_15530_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;1000&#34;
+				height=&#34;750&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;Photo by Helena Hertz on Unsplash&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;Photo by Helena Hertz on Unsplash&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;  &lt;figure style=&#34;flex-grow: 66; flex-basis: 160px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&#34; data-size=&#34;667x1000&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/hudai-gayiran-3Od_VKcDEAA-unsplash_hub241c2a9c7a2caf7e16a2a5bbc7141ff_18711_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/hudai-gayiran-3Od_VKcDEAA-unsplash_hub241c2a9c7a2caf7e16a2a5bbc7141ff_18711_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;667&#34;
+				height=&#34;1000&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;Photo by Hudai Gayiran on Unsplash&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;Photo by Hudai Gayiran on Unsplash&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;相册语法来自 &lt;a class=&#34;link&#34; href=&#34;https://typlog.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Typlog&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;原文&#34;&gt;原文&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dotnet-campus.github.io/post/UWP-%E4%B8%8A%E6%9E%B6%E5%A4%B1%E8%B4%A5%E5%9B%A0%E4%B8%BA%E6%B2%A1%E6%9C%89%E6%B7%BB%E5%8A%A0%E9%9A%90%E7%A7%81%E7%AD%96%E7%95%A5.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;UWP 上架失败因为没有添加隐私策略&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>使用Hugo创建个人博客方式</title>
+        <link>https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/</link>
+        <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/</guid>
+        <description>&lt;img src="https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/8-23-img8.jpg" alt="Featured image of post 使用Hugo创建个人博客方式" /&gt;&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;
+&lt;p&gt;使用美丽的 Ananke 主题创建一个 Hugo 站点。添加超时和断路器等等，所有这些功能都不必更改应用程序本身的代码。&lt;/p&gt;
+&lt;p&gt;此快速入门macOS在示例中使用。有关如何在其他操作系统上安装 Hugo 的说明，请参阅安装。&lt;/p&gt;
+&lt;p&gt;建议安装 Git来运行本教程。&lt;/p&gt;
+&lt;p&gt;对于其他学习 Hugo 的方法，如书本或视频教程，请参阅外部学习资源页面。&lt;/p&gt;
+&lt;h2 id=&#34;install-hugo&#34;&gt;Install Hugo&lt;/h2&gt;
+&lt;p&gt;在 macOS、Windows、Linux、OpenBSD、FreeBSD 以及任何可以运行 Go 编译器工具链的机器上安装 Hugo。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;适用于 x64、i386 和 ARM 架构的 macOS (Darwin)&lt;/li&gt;
+&lt;li&gt;Windows&lt;/li&gt;
+&lt;li&gt;Linux&lt;/li&gt;
+&lt;li&gt;OpenBSD&lt;/li&gt;
+&lt;li&gt;FreeBSD&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;chocolatey-windows&#34;&gt;Chocolatey (Windows)&lt;/h2&gt;
+&lt;p&gt;如果您在 Windows 机器上并使用Chocolatey进行包管理，则可以使用以下单行安装 Hugo：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ choco install hugo -confirm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;或者，如果您需要“扩展”Sass/SCSS 版本：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ choco install hugo-extended -confirm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;create-a-new-site&#34;&gt;Create a New Site&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ hugo new site quickstart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;创建名为quickstart的文件夹&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;add-a-theme&#34;&gt;Add a Theme&lt;/h2&gt;
+&lt;p&gt;有关要考虑的主题列表，请参阅themes.gohugo.io。本快速入门使用漂亮的Ananke 主题。&lt;/p&gt;
+&lt;p&gt;首先，从 GitHub 下载主题并将其添加到您网站的themes目录中：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ cd quickstart
+$ git init
+$ git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后，将主题添加到站点配置中：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ echo theme = \&amp;#34;ananke\&amp;#34; &amp;gt;&amp;gt; config.toml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;add-some-content&#34;&gt;Add Some Content&lt;/h2&gt;
+&lt;p&gt;您可以手动创建内容文件（例如 as content/&lt;!-- raw HTML omitted --&gt;/&lt;!-- raw HTML omitted --&gt;.&lt;!-- raw HTML omitted --&gt;）并在其中提供元数据，但是您可以使用该new命令为您做一些事情（例如添加标题和日期）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;$ hugo new posts/my-first-post.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果需要，编辑新创建的内容文件，它将以如下内容开头：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;---
+title: &amp;#34;My First Post&amp;#34;
+date: 2019-03-26T08:47:11+01:00
+draft: true
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;start-the-hugo-server&#34;&gt;Start the Hugo server&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;$ hugo server -D
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;customize-the-theme&#34;&gt;Customize the Theme&lt;/h2&gt;
+&lt;p&gt;您的新网站看起来不错，但在向公众发布之前，您需要对其进行一些调整。&lt;/p&gt;
+&lt;p&gt;config.toml在文本编辑器中打开：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;baseURL = &amp;#34;https://example.org/&amp;#34;
+languageCode = &amp;#34;en-us&amp;#34;
+title = &amp;#34;My New Hugo Site&amp;#34;
+theme = &amp;#34;ananke&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;用title更个性化的东西替换上面的内容。此外，如果您已经准备好域，请将baseURL. 请注意，运行本地开发服务器时不需要此值。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-command&#34; data-lang=&#34;command&#34;&gt;提示：在 Hugo 服务器运行时对站点配置或站点中的任何其他文件进行更改，您将立即在浏览器中看到更改，但您可能需要清除缓存。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;有关特定于主题的配置选项，请参阅主题站点。&lt;/p&gt;
+&lt;h2 id=&#34;原文&#34;&gt;原文&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/getting-started/quick-start/#step-4-add-some-content&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hugo 快速入门&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;image-share&#34;&gt;Image Share&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img9.jpg&#34; alt=&#34;Photo by Florian Klauer on Unsplash&#34;  /&gt; 
+&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img11.jpg&#34; alt=&#34;Photo by Luca Bravo on Unsplash&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;相册语法来自 &lt;a class=&#34;link&#34; href=&#34;https://typlog.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Typlog&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>如何在Ubuntu上给HTTP加密成HTTPS</title>
+        <link>https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/</link>
+        <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/</guid>
+        <description>&lt;img src="https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img15.jpg" alt="Featured image of post 如何在Ubuntu上给HTTP加密成HTTPS" /&gt;&lt;h2 id=&#34;准备工作&#34;&gt;准备工作&lt;/h2&gt;
+&lt;p&gt;要学习本教程，我们需要先准备：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;有 sudo 的 root 用户权限，大家可根据《Ubuntu 120.04初始服务器设置》（撰写中，稍后上线）指南来配置自己的服务器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;注册域名。本教程使用example.com作为范例。大家可以在阿里云购买一个域名，.com 域名一年60多块钱。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为服务器设置了以下两个DNS记录。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;example.com 的A记录指向服务器公网IP&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.example.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;www.example.com&lt;/a&gt;的A记录指向服务器公网IP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;请确保一个域对应一个server block。在本教程中，我们使用/etc/nginx/sites-available/example.com 来作为操作对象。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装-nginx&#34;&gt;安装 Nginx&lt;/h2&gt;
+&lt;p&gt;由于 Nginx 可以从 ubuntu 软件源中获得，因此我们可以使用 apt 来安装 Nginx。&lt;/p&gt;
+&lt;p&gt;我们可以使用以下命令安装 Nginx 到 Ubuntu 中。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo apt update
+$ sudo apt install nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;选择 Y 来开始安装，apt 会帮你把 Nginx 和它所必备的依赖安装到我们的服务器中。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;调整防火墙&#34;&gt;调整防火墙&lt;/h2&gt;
+&lt;p&gt;在测试 Nginx 之前，我们需要调整防火墙，让他允许 Nginx 服务通过。Nginx ufw 在安装时会把他自身注册成为服务。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ufw app list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;输出结果:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;kalasearch@chuan-server:~$ sudo ufw app list
+Available applications:
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  OpenSSH
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;你可以看到 Nginx 提供了三个配置文件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nginx Full
+&lt;ul&gt;
+&lt;li&gt;开端口80 正常，未加密的网络流量&lt;/li&gt;
+&lt;li&gt;端口443 TLS / SSL加密的流量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Nginx HTTP
+&lt;ul&gt;
+&lt;li&gt;仅打开端口80 正常，未加密&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Nginx HTTPS
+&lt;ul&gt;
+&lt;li&gt;仅打开端口443 TLS / SSL加密&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们使用 Nginx HTTPS 来做本教程演示。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ufw allow &amp;#39;Nginx HTTPS&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们用以下命令来查看更改结果&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ufw status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们可以在输出结果中看到&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere                  
+Nginx HTTP                 ALLOW       Anywhere                  
+OpenSSH (v6)               ALLOW       Anywhere (v6)             
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;管理-nginx&#34;&gt;管理 Nginx&lt;/h2&gt;
+&lt;p&gt;现在，您已启动并运行了Web服务器，让我们回顾一些基本的管理命令。&lt;/p&gt;
+&lt;p&gt;上一步，我们已经启动起来 Web 服务器了。接下来，让我们来学习一下 Nginx 的基本命令。&lt;/p&gt;
+&lt;p&gt;要停止Web服务器，输入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo systemctl stop nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;要在停止时，启动Web服务器，键入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo systemctl start nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;要停止，然后再次启动该服务，键入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo systemctl restart nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果我们只是修改配置，Nginx 可以在不终端的情况下热加载。我们可以键入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo systemctl reload nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;设置服务器块server-block&#34;&gt;设置服务器块（Server block）&lt;/h2&gt;
+&lt;p&gt;使用Nginx Web服务器时，服务器块（类似于Apache中的虚拟主机）可用于封装配置详细信息，并在一台服务器中托管多个域。我们将建立一个名为 example.com 的域，但我们可以用自己的域名替换它。&lt;/p&gt;
+&lt;p&gt;在 Ubuntu 上的 Nginx 默认情况下启用了一个服务器块（server block），服务器块的配置是为给服务器的目录提供地址 /var/www/html。尽管这对于单个站点非常有效，但是如果我们在服务器上托管多个站点，则可能变很臃肿。让我们给/var/www/html目录添加上分站点目录。&lt;/p&gt;
+&lt;p&gt;比如我们的网站是 example.com ，那我们创建一个对应的目录 example.com 目录：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo mkdir -p /var/www/example.com/html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;接下来，使用$USER环境变量分配目录的所有权：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo chown -R $USER:$USER /var/www/example.com/html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果我们没有修改自己的umask值，那么 Web 根目录的权限应该正确，我们可以通过输入以下命令来确认：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo chmod -R 755 /var/www/example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;接下来，让我们来编辑index.html 可以使用 nano 编辑器或其他你用这顺手的编辑器：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ nano /var/www/example.com/html/index.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在其中，添加以下示例HTML：&lt;/p&gt;
+&lt;p&gt;/var/www/example.com/html/index.html&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Welcome to Example.com!&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;h1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Success!  The example.com server block is working!&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;h1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成后保存并关闭文件。&lt;/p&gt;
+&lt;p&gt;接下来我们为 Nginx 来创建一个服务器块。与直接修改默认配置文件不同，我们在以下位置创建一个新文件：&lt;code&gt;/etc/nginx/sites-available/example.com&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo nano /etc/nginx/sites-available/example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;粘贴到以下内容添加到文件中，这个块的配置与默认块的配置相似，但针对我们的新目录和域名进行了更新：&lt;/p&gt;
+&lt;p&gt;/etc/nginx/sites-available/example.com&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;server {
+        listen 80;
+        listen [::]:80;
+        root /var/www/example.com/html;
+        index index.html index.htm index.nginx-debian.html;
+        server_name example.com www.example.com;
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;接下来，让我们通过在&lt;code&gt;sites-enabled&lt;/code&gt;目录新建一个链接，好让 Nginx 在启动过程中会读取这个目录：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;现在已启用并配置了两个服务器块，以及基于它们的&lt;code&gt;listen&lt;/code&gt;和&lt;code&gt;server_name&lt;/code&gt;指令响应请求：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;example.com:&lt;/code&gt; 将会响应&lt;code&gt;example.com&lt;/code&gt; 和 &lt;code&gt;www.example.com&lt;/code&gt;的请求&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;default&lt;/code&gt;: 将会响应 80 端口的请求，以及不能匹配到两个服务器块上的请求&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为避免可能由于添加其他服务器名称而引起的哈希存储区内存问题，有必要调整&lt;code&gt;/etc/nginx/nginx.conf&lt;/code&gt;文件中的单个值。&lt;/p&gt;
+&lt;p&gt;打开文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo nano /etc/nginx/nginx.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;找到&lt;code&gt;server_names_hash_bucket_size&lt;/code&gt;指令并删除&lt;code&gt;#&lt;/code&gt;符号：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;...
+http {
+    ...
+    server_names_hash_bucket_size 64;
+    ...
+}
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成后保存并关闭文件。&lt;/p&gt;
+&lt;p&gt;接下来，测试以确保我们在 Nginx 文件中的改动，没有任何问题：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;sudo nginx -t
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果没有任何问题，请重新启动 Nginx：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;sudo systemctl restart nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;figure style=&#34;flex-grow: 177; flex-basis: 426px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img16.jpg&#34; data-size=&#34;640x360&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img16.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img16_hu604cb190aad1f282ac7e3656c199bce9_6002_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img16_hu604cb190aad1f282ac7e3656c199bce9_6002_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;640&#34;
+				height=&#34;360&#34;
+				loading=&#34;lazy&#34;
+				&gt;
+		&lt;/a&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;有关要考虑的主题列表，请参阅themes.gohugo.io。本快速入门使用漂亮的Ananke 主题。&lt;/p&gt;
+&lt;p&gt;首先，从 GitHub 下载主题并将其添加到您网站的themes目录中：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ cd quickstart
+$ git init
+$ git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后，将主题添加到站点配置中：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ echo theme = \&amp;#34;ananke\&amp;#34; &amp;gt;&amp;gt; config.toml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;安装certbot&#34;&gt;安装Certbot&lt;/h2&gt;
+&lt;p&gt;首先我们得现在服务器上安装 Certbot&lt;/p&gt;
+&lt;p&gt;安装Certbot 及 Nginx 插件 &lt;code&gt;apt&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo apt install certbot python3-certbot-nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;选择 Y 后开始安装，安装完毕我们就可以使用 Certbot 了。&lt;/p&gt;
+&lt;p&gt;接下来我们要验证一下 Certbot 是否能为Nginx 自动配置 SSL。&lt;/p&gt;
+&lt;h2 id=&#34;让我们的防火墙允许https&#34;&gt;让我们的防火墙允许HTTPS&lt;/h2&gt;
+&lt;p&gt;需要先允许ufw使用&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ufw enable
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们来查看一下当前状态。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ufw status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;输出结果如果类似下面这样：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere                  
+Nginx HTTP                 ALLOW       Anywhere                  
+OpenSSH (v6)               ALLOW       Anywhere (v6)             
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;说明防火墙允许HTTPS通信。但如果你的服务器不允许，那么请执行以下命令。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ufw allow &amp;#39;Nginx Full&amp;#39;
+$ sudo ufw delete allow &amp;#39;Nginx HTTP&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后再让我们查看一下状态的变化。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ufw status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;输出结果变为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+Nginx Full                 ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+Nginx Full (v6)            ALLOW       Anywhere (v6)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在此处我们要注意把22,443,80几个端口加入白名单,不然可能后续会导致你进不去ssh&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo ufw allow 22
+$ sudo ufw allow 80
+$ sudo ufw allow 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;好的，接下来，让我们运行 Certbot 来获取我们的安全证书吧。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 161; flex-basis: 388px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/Letsencrypt.jpg&#34; data-size=&#34;583x360&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/Letsencrypt.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/Letsencrypt_hubdbdcdad531b8dc603d1a573b1901fad_14421_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/Letsencrypt_hubdbdcdad531b8dc603d1a573b1901fad_14421_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;583&#34;
+				height=&#34;360&#34;
+				loading=&#34;lazy&#34;
+				&gt;
+		&lt;/a&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&#34;获取-ssl-证书&#34;&gt;获取 SSL 证书&lt;/h2&gt;
+&lt;p&gt;Certbot 提供了获得 SSL 的方法。Nginx Plugins（插件） 帮助我们在必要的时候重新加载配置文件。让我们来开启这个插件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ sudo certbot --nginx -d example.com -d www.example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;certbot&lt;/code&gt;与&lt;code&gt;--nginx&lt;/code&gt; 插件一起运行，&lt;code&gt;-d&lt;/code&gt;用于指定我们希望获得证书的域名。&lt;/p&gt;
+&lt;p&gt;如果我们是第一次运行，那么 &lt;code&gt;Certbot&lt;/code&gt; 将提示我们输入邮箱并阅读服务条款。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;Invalid email address: .
+Enter email address (used for urgent renewal and security notices)
+
+If you really want to skip this, you can run the client with
+--register-unsafely-without-email but make sure you then backup your account key
+from /etc/letsencrypt/accounts
+
+ (Enter &amp;#39;c&amp;#39; to cancel): nginx@kalasearch.com
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
+agree in order to register with the ACME server at
+https://acme-v02.api.letsencrypt.org/directory
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(A)gree/(C)ancel:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果这是您第一次运行certbot，将提示您输入电子邮件地址并同意服务条款。&lt;/p&gt;
+&lt;p&gt;完成此操作后，certbot开始与 Let&amp;rsquo;s Encrypt 服务器通信，然后开始验证我们是否是这个域名的真正拥有者。&lt;/p&gt;
+&lt;p&gt;如果成功，certbot 会继续询问我们如何配置HTTPS。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: No redirect - Make no further changes to the webserver configuration.
+2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
+new sites, or if you&amp;#39;re confident your site works on HTTPS. You can undo this
+change by editing your web server&amp;#39;s configuration.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then [enter] (press &amp;#39;c&amp;#39; to cancel):
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个我建议选择2，然后回车。配置文件就会更新，Nginx 也会重新加载。&lt;code&gt;Certbot&lt;/code&gt; 会显示一条消息，告诉我们整个过程已经完成，证书存储在服务器的什么位置上：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/example.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/example.com/privkey.pem
+   Your cert will expire on 2020-11-01. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot again
+   with the &amp;#34;certonly&amp;#34; option. To non-interactively renew *all* of
+   your certificates, run &amp;#34;certbot renew&amp;#34;
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let&amp;#39;s Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们的证书已经下载并已经加载成功。我们可以使用 https:// 来进行访问。如果访问成功并且浏览器地址栏前面已经出现带锁的标志，那么说明我们的网站已经获得A级保护。&lt;/p&gt;
+&lt;p&gt;接下来，我们学习如何续订这个安全证书。&lt;/p&gt;
+&lt;h2 id=&#34;验证-certbot-自动续订&#34;&gt;验证 Certbot 自动续订&lt;/h2&gt;
+&lt;p&gt;我们获得的加密证书只有 90 天有效期，但不用担心，&lt;code&gt;Certbot&lt;/code&gt;会帮我们解决续订问题，它会每天运行两次&lt;code&gt;systemd&lt;/code&gt;监测程序来检查域名证书是否快到期。如果域名证书在近 30 天到期，它会自动续订这些域名的证书。&lt;/p&gt;
+&lt;p&gt;我们可以输入以下命令来检查&lt;code&gt;systemctl&lt;/code&gt;的状态：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;sudo systemctl status certbot.timer
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;kalasearch@chuan-server:~$ sudo systemctl status certbot.timer
+
+● certbot.timer - Run certbot twice daily
+     Loaded: loaded (/lib/systemd/system/certbot.timer; enabled; vendor preset: enabled)
+     Active: active (waiting) since Sat 2020-08-01 03:37:47 UTC; 46min ago
+    Trigger: Sat 2020-08-01 12:54:45 UTC; 8h left
+   Triggers: ● certbot.service
+
+Aug 01 03:37:47 chuan-server systemd[1]: Started Run certbot twice daily.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;要测试域名证书的续订过程，我们可以输入以下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;sudo certbot renew --dry-run
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果输出结果没有任何错误，则表明一切就绪。如果在未来，续订证书发生问题，那么也不用担心，Let&amp;rsquo;s Encrypt 会通过前面几步中我们留的邮箱联系我们，通知我们域名证书即将过期。&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;在本教程中，我们学习了如何安装 Let&amp;rsquo;s Encrypt 的客户端 certbot。以及如何使用certbot 为我们的域名下载了 SSL 证书。以及学习了如何设置 certbot 让它自动帮我们更新证书。如果你对使用 Certbot 还有疑问，可以在本文下面留言，也可以查看它的&lt;a class=&#34;link&#34; href=&#34;https://certbot.eff.org/docs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;官方文档&lt;/code&gt;&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;原文&#34;&gt;原文&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://kalasearch.cn/community/tutorials/how-to-install-nginx-on-ubuntu-20-04/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;如何在 Ubuntu 20.04 中安装和配置 Nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://kalasearch.cn/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;如何在 Ubuntu20.04 上使用 Let’s Encrypt 给 Nginx 加密（SSL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;image-share&#34;&gt;Image Share&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img12.jpg&#34; alt=&#34;Photo by Florian Klauer on Unsplash&#34;  /&gt; 
+&lt;img src=&#34;https://dashi.veterinerburada.com/Images/8-23-img13.jpg&#34; alt=&#34;Photo by Luca Bravo on Unsplash&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;相册语法来自 &lt;a class=&#34;link&#34; href=&#34;https://typlog.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Typlog&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Markdown Syntax Guide</title>
+        <link>https://ShermanXie1998.github.io/p/markdown-syntax-guide/</link>
+        <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/markdown-syntax-guide/</guid>
+        <description>&lt;img src="https://ShermanXie1998.github.io/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
+&lt;h2 id=&#34;headings&#34;&gt;Headings&lt;/h2&gt;
+&lt;p&gt;The following HTML &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt;—&lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; elements represent six levels of section headings. &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; is the highest section level while &lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; is the lowest.&lt;/p&gt;
+&lt;h1 id=&#34;h1&#34;&gt;H1&lt;/h1&gt;
+&lt;h2 id=&#34;h2&#34;&gt;H2&lt;/h2&gt;
+&lt;h3 id=&#34;h3&#34;&gt;H3&lt;/h3&gt;
+&lt;h4 id=&#34;h4&#34;&gt;H4&lt;/h4&gt;
+&lt;h5 id=&#34;h5&#34;&gt;H5&lt;/h5&gt;
+&lt;h6 id=&#34;h6&#34;&gt;H6&lt;/h6&gt;
+&lt;h2 id=&#34;paragraph&#34;&gt;Paragraph&lt;/h2&gt;
+&lt;p&gt;Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.&lt;/p&gt;
+&lt;p&gt;Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.&lt;/p&gt;
+&lt;h2 id=&#34;blockquotes&#34;&gt;Blockquotes&lt;/h2&gt;
+&lt;p&gt;The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a &lt;code&gt;footer&lt;/code&gt; or &lt;code&gt;cite&lt;/code&gt; element, and optionally with in-line changes such as annotations and abbreviations.&lt;/p&gt;
+&lt;h4 id=&#34;blockquote-without-attribution&#34;&gt;Blockquote without attribution&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+&lt;strong&gt;Note&lt;/strong&gt; that you can use &lt;em&gt;Markdown syntax&lt;/em&gt; within a blockquote.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;blockquote-with-attribution&#34;&gt;Blockquote with attribution&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don&amp;rsquo;t communicate by sharing memory, share memory by communicating.&lt;!-- raw HTML omitted --&gt;
+— &lt;!-- raw HTML omitted --&gt;Rob Pike&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;tables&#34;&gt;Tables&lt;/h2&gt;
+&lt;p&gt;Tables aren&amp;rsquo;t part of the core Markdown spec, but Hugo supports supports them out-of-the-box.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Age&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Bob&lt;/td&gt;
+&lt;td&gt;27&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alice&lt;/td&gt;
+&lt;td&gt;23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;inline-markdown-within-tables&#34;&gt;Inline Markdown within tables&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Italics&lt;/th&gt;
+&lt;th&gt;Bold&lt;/th&gt;
+&lt;th&gt;Code&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;italics&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;bold&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;code&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;code-blocks&#34;&gt;Code Blocks&lt;/h2&gt;
+&lt;h4 id=&#34;code-block-with-backticks&#34;&gt;Code block with backticks&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;lang&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;en&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;charset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Example HTML5 Document&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Test&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;code-block-indented-with-four-spaces&#34;&gt;Code block indented with four spaces&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+  &amp;lt;title&amp;gt;Example HTML5 Document&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+  &amp;lt;p&amp;gt;Test&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;code-block-with-hugos-internal-highlight-shortcode&#34;&gt;Code block with Hugo&amp;rsquo;s internal highlight shortcode&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;lang&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;en&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;charset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Example HTML5 Document&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Test&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;list-types&#34;&gt;List Types&lt;/h2&gt;
+&lt;h4 id=&#34;ordered-list&#34;&gt;Ordered List&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;First item&lt;/li&gt;
+&lt;li&gt;Second item&lt;/li&gt;
+&lt;li&gt;Third item&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;unordered-list&#34;&gt;Unordered List&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;List item&lt;/li&gt;
+&lt;li&gt;Another item&lt;/li&gt;
+&lt;li&gt;And another item&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;nested-list&#34;&gt;Nested list&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Fruit
+&lt;ul&gt;
+&lt;li&gt;Apple&lt;/li&gt;
+&lt;li&gt;Orange&lt;/li&gt;
+&lt;li&gt;Banana&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Dairy
+&lt;ul&gt;
+&lt;li&gt;Milk&lt;/li&gt;
+&lt;li&gt;Cheese&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;other-elements--abbr-sub-sup-kbd-mark&#34;&gt;Other Elements — abbr, sub, sup, kbd, mark&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;![&lt;span class=&#34;nt&#34;&gt;Photo by Florian Klauer on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;florian-klauer-nptLmg6jqDo-unsplash.jpg&lt;/span&gt;)  ![&lt;span class=&#34;nt&#34;&gt;Photo by Luca Bravo on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;luca-bravo-alS7ewQ41M8-unsplash.jpg&lt;/span&gt;) 
+
+![&lt;span class=&#34;nt&#34;&gt;Photo by Helena Hertz on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;helena-hertz-wWZzXlDpMog-unsplash.jpg&lt;/span&gt;)  ![&lt;span class=&#34;nt&#34;&gt;Photo by Hudai Gayiran on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;GIF&lt;!-- raw HTML omitted --&gt; is a bitmap image format.&lt;/p&gt;
+&lt;p&gt;H&lt;!-- raw HTML omitted --&gt;2&lt;!-- raw HTML omitted --&gt;O&lt;/p&gt;
+&lt;p&gt;X&lt;!-- raw HTML omitted --&gt;n&lt;!-- raw HTML omitted --&gt; + Y&lt;!-- raw HTML omitted --&gt;n&lt;!-- raw HTML omitted --&gt; = Z&lt;!-- raw HTML omitted --&gt;n&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;Press &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;CTRL&lt;!-- raw HTML omitted --&gt;+&lt;!-- raw HTML omitted --&gt;ALT&lt;!-- raw HTML omitted --&gt;+&lt;!-- raw HTML omitted --&gt;Delete&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt; to end the session.&lt;/p&gt;
+&lt;p&gt;Most &lt;!-- raw HTML omitted --&gt;salamanders&lt;!-- raw HTML omitted --&gt; are nocturnal, and hunt for insects, worms, and other small creatures.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The above quote is excerpted from Rob Pike&amp;rsquo;s &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=PAAkCSZUG1c&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;talk&lt;/a&gt; during Gopherfest, November 18, 2015.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;</description>
+        </item>
+        <item>
+        <title>Rich Content</title>
+        <link>https://ShermanXie1998.github.io/p/rich-content/</link>
+        <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/rich-content/</guid>
+        <description>&lt;p&gt;Hugo ships with several &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;youtube-privacy-enhanced-shortcode&#34;&gt;YouTube Privacy Enhanced Shortcode&lt;/h2&gt;
+&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/ZJthWmvUzzc&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;!-- raw HTML omitted --&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;twitter-simple-shortcode&#34;&gt;Twitter Simple Shortcode&lt;/h2&gt;
+
+
+
+
+&lt;style type=&#34;text/css&#34;&gt;
+  .twitter-tweet {
+  font: 14px/1.45 -apple-system,BlinkMacSystemFont,&#34;Segoe UI&#34;,Roboto,Oxygen-Sans,Ubuntu,Cantarell,&#34;Helvetica Neue&#34;,sans-serif;
+  border-left: 4px solid #2b7bb9;
+  padding-left: 1.5em;
+  color: #555;
+}
+  .twitter-tweet a {
+  color: #2b7bb9;
+  text-decoration: none;
+}
+  blockquote.twitter-tweet a:hover,
+  blockquote.twitter-tweet a:focus {
+  text-decoration: underline;
+}
+&lt;/style&gt;
+
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;“In addition to being more logical, asymmetry has the advantage that its complete appearance is far more optically effective than symmetry.”&lt;br&gt;— Jan Tschichold &lt;a href=&#34;https://t.co/gcv7SrhvJb&#34;&gt;pic.twitter.com/gcv7SrhvJb&lt;/a&gt;&lt;/p&gt;&amp;mdash; Graphic Design History (@DesignReviewed) &lt;a href=&#34;https://twitter.com/DesignReviewed/status/1085870671291310081?ref_src=twsrc%5Etfw&#34;&gt;January 17, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;!-- raw HTML omitted --&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;vimeo-simple-shortcode&#34;&gt;Vimeo Simple Shortcode&lt;/h2&gt;
+
+
+
+
+
+
+&lt;style&gt;
+.__h_video {
+   position: relative;
+   padding-bottom: 56.23%;
+   height: 0;
+   overflow: hidden;
+   width: 100%;
+   background: #000;
+}
+.__h_video img {
+   width: 100%;
+   height: auto;
+   color: #000;
+}
+.__h_video .play {
+   height: 72px;
+   width: 72px;
+   left: 50%;
+   top: 50%;
+   margin-left: -36px;
+   margin-top: -36px;
+   position: absolute;
+   cursor: pointer;
+}
+&lt;/style&gt;
+
+
+&lt;div class=&#34;s_video_simple __h_video&#34;&gt;
+&lt;a href=&#34;https://vimeo.com/4.8912912e&amp;#43;07&#34; rel=&#34;noopener&#34; target=&#34;_blank&#34;&gt;
+
+
+&lt;img src=&#34;https://i.vimeocdn.com/video/337401969_640&#34; srcset=&#34;https://i.vimeocdn.com/video/337401969_640 1x, https://i.vimeocdn.com/video/337401969_640 2x&#34; alt=&#34;Sing Jan Swing - Kinetic Type&#34;&gt;
+&lt;div class=&#34;play&#34;&gt;&lt;svg version=&#34;1&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 61 61&#34;&gt;&lt;circle cx=&#34;30.5&#34; cy=&#34;30.5&#34; r=&#34;30.5&#34; opacity=&#34;.8&#34; fill=&#34;#000&#34;&gt;&lt;/circle&gt;&lt;path d=&#34;M25.3 19.2c-2.1-1.2-3.8-.2-3.8 2.2v18.1c0 2.4 1.7 3.4 3.8 2.2l16.6-9.1c2.1-1.2 2.1-3.2 0-4.4l-16.6-9z&#34; fill=&#34;#fff&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>Placeholder Text</title>
+        <link>https://ShermanXie1998.github.io/p/placeholder-text/</link>
+        <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/placeholder-text/</guid>
+        <description>&lt;img src="https://ShermanXie1998.github.io/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
+&lt;p&gt;Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Exierant elisi ambit vivere dedere&lt;/li&gt;
+&lt;li&gt;Duce pollice&lt;/li&gt;
+&lt;li&gt;Eris modo&lt;/li&gt;
+&lt;li&gt;Spargitque ferrea quos palude&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Rursus nulli murmur; hastile inridet ut ab gravi sententia! Nomine potitus silentia flumen, sustinet placuit petis in dilapsa erat sunt. Atria tractus malis.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Comas hunc haec pietate fetum procerum dixit&lt;/li&gt;
+&lt;li&gt;Post torum vates letum Tiresia&lt;/li&gt;
+&lt;li&gt;Flumen querellas&lt;/li&gt;
+&lt;li&gt;Arcanaque montibus omnes&lt;/li&gt;
+&lt;li&gt;Quidem et&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;vagus-elidunt&#34;&gt;Vagus elidunt&lt;/h1&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Canons_of_page_construction#Van_de_Graaf_canon&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;The Van de Graaf Canon&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;mane-refeci-capiebant-unda-mulcebat&#34;&gt;Mane refeci capiebant unda mulcebat&lt;/h2&gt;
+&lt;p&gt;Victa caducifer, malo vulnere contra dicere aurato, ludit regale, voca! Retorsit colit est profanae esse virescere furit nec; iaculi matertera et visa est, viribus. Divesque creatis, tecta novat collumque vulnus est, parvas. &lt;strong&gt;Faces illo pepulere&lt;/strong&gt; tempus adest. Tendit flamma, ab opes virum sustinet, sidus sequendo urbis.&lt;/p&gt;
+&lt;p&gt;Iubar proles corpore raptos vero auctor imperium; sed et huic: manus caeli Lelegas tu lux. Verbis obstitit intus oblectamina fixis linguisque ausus sperare Echionides cornuaque tenent clausit possit. Omnia putatur. Praeteritae refert ausus; ferebant e primus lora nutat, vici quae mea ipse. Et iter nil spectatae vulnus haerentia iuste et exercebat, sui et.&lt;/p&gt;
+&lt;p&gt;Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel &lt;strong&gt;mitis temploque&lt;/strong&gt; vocatus, inque alis, &lt;em&gt;oculos nomen&lt;/em&gt; non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides &lt;strong&gt;parte&lt;/strong&gt;.&lt;/p&gt;</description>
+        </item>
+        <item>
+        <title>Math Typesetting</title>
+        <link>https://ShermanXie1998.github.io/p/math-typesetting/</link>
+        <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/math-typesetting/</guid>
+        <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
+&lt;p&gt;In this example we will be using &lt;a class=&#34;link&#34; href=&#34;https://katex.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;KaTeX&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a partial under &lt;code&gt;/layouts/partials/math.html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Within this partial reference the &lt;a class=&#34;link&#34; href=&#34;https://katex.org/docs/autorender.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Auto-render Extension&lt;/a&gt; or host these scripts locally.&lt;/li&gt;
+&lt;li&gt;Include the partial in your templates like so:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;o&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; or .Params.math .Site.Params.math &lt;span class=&#34;o&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;{{&lt;/span&gt; partial &lt;span class=&#34;s2&#34;&gt;&amp;#34;math.html&amp;#34;&lt;/span&gt; . &lt;span class=&#34;o&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;{{&lt;/span&gt; end &lt;span class=&#34;o&#34;&gt;}}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;To enable KaTex globally set the parameter &lt;code&gt;math&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in a project&amp;rsquo;s configuration&lt;/li&gt;
+&lt;li&gt;To enable KaTex on a per page basis include the parameter &lt;code&gt;math: true&lt;/code&gt; in content files&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Use the online reference of &lt;a class=&#34;link&#34; href=&#34;https://katex.org/docs/supported.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Supported TeX Functions&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
+
+&lt;p&gt;Block math:
+$$
+\varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } 
+$$&lt;/p&gt;</description>
+        </item>
+        <item>
+        <title>Emoji Support</title>
+        <link>https://ShermanXie1998.github.io/p/emoji-support/</link>
+        <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/emoji-support/</guid>
+        <description>&lt;img src="https://ShermanXie1998.github.io/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" /&gt;&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/functions/emojify/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;emojify&lt;/code&gt;&lt;/a&gt; function can be called directly in templates or &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/templates/shortcode-templates/#inline-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Inline Shortcodes&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To enable emoji globally, set &lt;code&gt;enableEmoji&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in your site&amp;rsquo;s &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/getting-started/configuration/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;configuration&lt;/a&gt; and then you can type emoji shorthand codes directly in content files; e.g.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;The &lt;a class=&#34;link&#34; href=&#34;http://www.emoji-cheat-sheet.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Emoji cheat sheet&lt;/a&gt; is a useful reference for emoji shorthand codes.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;N.B.&lt;/strong&gt; The above steps enable Unicode Standard emoji characters and sequences in Hugo, however the rendering of these glyphs depends on the browser and the platform. To style the emoji you can either use a third party emoji font or a font stack; e.g.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;.emoji {
+  font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

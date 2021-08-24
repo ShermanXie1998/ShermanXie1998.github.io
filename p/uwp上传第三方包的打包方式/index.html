@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='UWP是如何上传第三方作者的包置Microsoft store内的?本篇文章将进行解答,同时会解答遭遇UWP上架失败的问题'><title>UWP上传第三方包的打包方式</title>
+
+<link rel='canonical' href='https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='UWP上传第三方包的打包方式'>
+<meta property='og:description' content='UWP是如何上传第三方作者的包置Microsoft store内的?本篇文章将进行解答,同时会解答遭遇UWP上架失败的问题'>
+<meta property='og:url' content='https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/'>
+<meta property='og:site_name' content='Sherman&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='UWP' /><meta property='article:published_time' content='2021-08-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-23T00:00:00&#43;00:00'/><meta property='og:image' content='https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash.jpg' />
+<meta name="twitter:title" content="UWP上传第三方包的打包方式">
+<meta name="twitter:description" content="UWP是如何上传第三方作者的包置Microsoft store内的?本篇文章将进行解答,同时会解答遭遇UWP上架失败的问题"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash.jpg' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://ShermanXie1998.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/">
+                <img src="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash_hu45a5e3ad5e058da6a00650ed8fd40bea_15530_800x0_resize_q75_box.jpg"
+                        srcset="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash_hu45a5e3ad5e058da6a00650ed8fd40bea_15530_800x0_resize_q75_box.jpg 800w, /p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash_hu45a5e3ad5e058da6a00650ed8fd40bea_15530_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="600" 
+                        loading="lazy"
+                        alt="Featured image of post UWP上传第三方包的打包方式" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/uwp/" >
+                UWP
+            </a>
+        
+            <a href="/categories/microsoft-store-package/" >
+                Microsoft store package
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/">UWP上传第三方包的打包方式</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        UWP是如何上传第三方作者的包置Microsoft store内的?本篇文章将进行解答,同时会解答遭遇UWP上架失败的问题
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 23, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 min read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="引言">引言</h2>
+<p>在阅读本文前,请先确定您使用开发是基于Visual studio 2019的UWP平台.</p>
+<h2 id="1创建证书">1.创建证书</h2>
+<p>打开你的Package文件,点击publisher的选择证书,然后点击创建新证书.</p>
+<p><img src="https://dashi.veterinerburada.com/Images/8-23-img1.png" alt=""  /></p>
+<p>这里只需要输入Publisher Common Name,先不要填,往下看.</p>
+<p><img src="https://dashi.veterinerburada.com/Images/8-23-img2.png" alt=""  /></p>
+<hr>
+<h2 id="2找到publisher-common-name">2.找到Publisher Common Name.</h2>
+<p>首先我们需要打开微软的合作中心,请确保你拥有一个开发者账号,如果没有的话你是进不到这个网页里的.</p>
+<p><img src="https://dashi.veterinerburada.com/Images/8-23-img3.png" alt=""  /></p>
+<p>你需要先点击概述,创建新应用或选择你已经创建好需要发布的应用.然后点击产品管理里的产品标识.</p>
+<p><img src="https://dashi.veterinerburada.com/Images/8-23-img4.png" alt=""  /></p>
+<p>在此界面上只需要把&quot;包/标识/发行商&quot;里CN后面的一串数字复制,然后再粘贴到Visual Studio内的Publisher Common Name内即可.这样你的信任证书就已经生成了.</p>
+<hr>
+<h2 id="3如何进行打包">3.如何进行打包</h2>
+<p>首先,你需要点击Project-&gt;项目属性-&gt;Bulid,把Platform target选择到你所需要的平台,开启.Net本地链与优化代码,进行此步骤的原因是要生成用于商店发布的misxupload文件.</p>
+<p><img src="https://dashi.veterinerburada.com/Images/8-23-img5.png" alt=""  /></p>
+<p>然后右键你的项目,点击publish-&gt;创建APP package</p>
+<p><img src="https://dashi.veterinerburada.com/Images/8-23-img5.png" alt=""  /></p>
+<p>选择第二个选项,然后登录你的账户后选择你要发布到Microsoft store的Identity.更改你所需的APP版本号与所需平台后即可点击创建.</p>
+<ul>
+<li>
+<p>在此处要注意的是,发布版本只能越来越大,不能在商店上发布一个高版本后再降低版本号.</p>
+</li>
+<li>
+<p>另外如果你使用了第三方的依赖,一定要确定可以在你所打包的平台(x86/x64)下可以运行,不然也不会打包成功.</p>
+</li>
+</ul>
+<hr>
+<h2 id="4上传至商店">4.上传至商店</h2>
+<p>在你编译软件的目录内寻找AppPackages的文件,打开后找到后缀为Msixupload的文件.然后回到微软的合作中心页面,在应用程序概述内找到提交-&gt;程序包,然后把你刚生成的Msixupload文件上传上去.这样关于UWP第三方文件的打包与上传就完成了.</p>
+<hr>
+<h2 id="5uwp上架失败因为没有添加隐私策略问题">5.UWP上架失败因为没有添加隐私策略问题</h2>
+<p>在使用 UWP 上架之前需要经过微软的审核，在美国很看重个人隐私，因此需要在两个地方都填写上隐私策略。第一个是应用商店里面，第二个是应用程序里面
+如果是个人开发者，我的推荐是在 github 或 gitee 创建一个叫隐私策略的文件，复制这个链接填写在应用商店管理的属性上，请看下图</p>
+<p>如何写隐私策略请看 win10 uwp 隐私声明 注意修改软件名然后打开代码，在代码里面添加一个叫 PrivacyPolicyURL 的静态属性，将隐私策略放在这个属性，然后写一个文本超链接用于打开</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">    public static class PrivacyPolicy
+    {
+	public static string PrivacyPolicyURL { get; } = &#34;https://github.com/lindexi/UWP/blob/master/uwp/src/%E9%9A%9
+    0%E7%A7%81%E7%AD%96%E7%95%A5/Privacy%20Policy.md&#34;;
+    }
+</code></pre></div><p>在界面添加超链接</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">   <span class="p">&lt;</span><span class="nt">TextBlock</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">Hyperlink</span> <span class="na">NavigateUri</span><span class="o">=</span><span class="s">&#34;https://github.com/lindexi/UWP/blob/master/uwp/src/%E9
+</span><span class="s">   %9A%90%E7%A7%81%E7%AD%96%E7%95%A5/Privacy%20Policy.md&#34;</span><span class="p">&gt;</span>隐私策略<span class="p">&lt;/</span><span class="nt">Hyperlink</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">TextBlock</span><span class="p">&gt;</span>
+
+</code></pre></div><p>修改之后请重新上传新的包</p>
+<p>如果此时发现无法上传新的包，而在认证里面有附加了联系的邮件地址，如文章最后附加的微软给我的信息，可以看到微软告诉我说联系 <a class="link" href="mailto:reportapp@microsoft.com" >reportapp@microsoft.com</a> 邮件</p>
+<p>可以通过谷歌翻译的方式告诉微软的大佬说我的应用已经更新了，里面填写了隐私声明了。小窍门，即使咱之前已经写过了，也是要给他一点面子，还是说咱改了软件了，感谢你的提示。另外在发邮件的时候记得附加自己应用的 Id 哦，如可以这样写</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">主题: I update my application 9NBLGGH562R2 and please review it
+
+正文:
+
+Hi,
+ 
+My applicaion(App Id: 9NHNXT3Q2X7F) was publish fail and I have changed my app now, and please review it.
+
+Thank you.
+</code></pre></div><p>请将 App id 替换为你的应用 Id 如何找到自己的应用 Id 请看下面</p>
+<p>可以找到应用号</p>
+<p>下面是微软发给我的信息</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">Please take the following action
+
+We reviewed your submission and identified some changes that are needed before we can publish or update the app. Please make these changes and resubmit your app. For more information, contact reportapp@microsoft.com Please include your app ID so we can act quickly.
+
+App Policies: 10.5.1 Personal Information
+
+Notes To Developer
+
+Because the app accesses personal information, a working link to a privacy policy must be provided.
+Location where privacy policy was missing: 
+Metadata: OK 
+In-product: Needs attention
+ 
+For metadata include the privacy policy URL during app submission under the Properties section in the “Privacy Policy URL” field.
+ 
+For in-product include the privacy policy URL under the settings section.
+ 
+For additional assistance with updating the privacy policy URL, please contact Developer Support via Dev Center or here: http://aka.ms/storesupport
+ 
+Personal information the app accesses includes:
+Photos (Picture gallery)
+Documents (device folders and files)
+Please Note
+
+    Your current certification results might differ from earlier submissions because Microsoft Store policy requirements can change over time. When policies change, we might re-test according to the new requirements regardless of the submission type. Please always rely on your most recent certification results.
+
+</code></pre></div><p>至于为什么我的图床应用需要写隐私策略?因为我访问了 Photos 文件夹和 Documents 文件夹.</p>
+<hr>
+<h2 id="image-share">Image Share</h2>
+<p><figure style="flex-grow: 66; flex-basis: 160px">
+		<a href="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/florian-klauer-nptLmg6jqDo-unsplash.jpg" data-size="667x1000"><img src="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/florian-klauer-nptLmg6jqDo-unsplash.jpg"
+				srcset="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/florian-klauer-nptLmg6jqDo-unsplash_hu595aaf3b3dbbb41af5aed8d3958cc9f9_13854_480x0_resize_q75_box.jpg 480w, /p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/florian-klauer-nptLmg6jqDo-unsplash_hu595aaf3b3dbbb41af5aed8d3958cc9f9_13854_1024x0_resize_q75_box.jpg 1024w"
+				width="667"
+				height="1000"
+				loading="lazy"
+				alt="Photo by Florian Klauer on Unsplash">
+		</a>
+		
+		<figcaption>Photo by Florian Klauer on Unsplash</figcaption>
+		
+	</figure>  <figure style="flex-grow: 149; flex-basis: 359px">
+		<a href="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/luca-bravo-alS7ewQ41M8-unsplash.jpg" data-size="1000x667"><img src="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/luca-bravo-alS7ewQ41M8-unsplash.jpg"
+				srcset="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/luca-bravo-alS7ewQ41M8-unsplash_hu0a3f1163de68d0b9471979ebf0ecf11e_32400_480x0_resize_q75_box.jpg 480w, /p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/luca-bravo-alS7ewQ41M8-unsplash_hu0a3f1163de68d0b9471979ebf0ecf11e_32400_1024x0_resize_q75_box.jpg 1024w"
+				width="1000"
+				height="667"
+				loading="lazy"
+				alt="Photo by Luca Bravo on Unsplash">
+		</a>
+		
+		<figcaption>Photo by Luca Bravo on Unsplash</figcaption>
+		
+	</figure></p>
+<p><figure style="flex-grow: 133; flex-basis: 320px">
+		<a href="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash.jpg" data-size="1000x750"><img src="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash.jpg"
+				srcset="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash_hu45a5e3ad5e058da6a00650ed8fd40bea_15530_480x0_resize_q75_box.jpg 480w, /p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/helena-hertz-wWZzXlDpMog-unsplash_hu45a5e3ad5e058da6a00650ed8fd40bea_15530_1024x0_resize_q75_box.jpg 1024w"
+				width="1000"
+				height="750"
+				loading="lazy"
+				alt="Photo by Helena Hertz on Unsplash">
+		</a>
+		
+		<figcaption>Photo by Helena Hertz on Unsplash</figcaption>
+		
+	</figure>  <figure style="flex-grow: 66; flex-basis: 160px">
+		<a href="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg" data-size="667x1000"><img src="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg"
+				srcset="/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/hudai-gayiran-3Od_VKcDEAA-unsplash_hub241c2a9c7a2caf7e16a2a5bbc7141ff_18711_480x0_resize_q75_box.jpg 480w, /p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/hudai-gayiran-3Od_VKcDEAA-unsplash_hub241c2a9c7a2caf7e16a2a5bbc7141ff_18711_1024x0_resize_q75_box.jpg 1024w"
+				width="667"
+				height="1000"
+				loading="lazy"
+				alt="Photo by Hudai Gayiran on Unsplash">
+		</a>
+		
+		<figcaption>Photo by Hudai Gayiran on Unsplash</figcaption>
+		
+	</figure></p>
+<p>相册语法来自 <a class="link" href="https://typlog.com/"  target="_blank" rel="noopener"
+    >Typlog</a></p>
+<h2 id="原文">原文</h2>
+<ul>
+<li><a class="link" href="https://dotnet-campus.github.io/post/UWP-%E4%B8%8A%E6%9E%B6%E5%A4%B1%E8%B4%A5%E5%9B%A0%E4%B8%BA%E6%B2%A1%E6%9C%89%E6%B7%BB%E5%8A%A0%E9%9A%90%E7%A7%81%E7%AD%96%E7%95%A5.html"  target="_blank" rel="noopener"
+    >UWP 上架失败因为没有添加隐私策略</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/uwp/">UWP</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Sherman's Blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Sherman&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.1.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#引言">引言</a></li>
+    <li><a href="#1创建证书">1.创建证书</a></li>
+    <li><a href="#2找到publisher-common-name">2.找到Publisher Common Name.</a></li>
+    <li><a href="#3如何进行打包">3.如何进行打包</a></li>
+    <li><a href="#4上传至商店">4.上传至商店</a></li>
+    <li><a href="#5uwp上架失败因为没有添加隐私策略问题">5.UWP上架失败因为没有添加隐私策略问题</a></li>
+    <li><a href="#image-share">Image Share</a></li>
+    <li><a href="#原文">原文</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

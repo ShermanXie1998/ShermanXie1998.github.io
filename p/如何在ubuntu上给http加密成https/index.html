@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='在本教程中，我们一起来学习如何使用 Certbot 在 Ubuntu 20.04 上获得 Nginx 的免费 SSL 证书，以及设置如何续订这个证书。'><title>如何在Ubuntu上给HTTP加密成HTTPS</title>
+
+<link rel='canonical' href='https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='如何在Ubuntu上给HTTP加密成HTTPS'>
+<meta property='og:description' content='在本教程中，我们一起来学习如何使用 Certbot 在 Ubuntu 20.04 上获得 Nginx 的免费 SSL 证书，以及设置如何续订这个证书。'>
+<meta property='og:url' content='https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/'>
+<meta property='og:site_name' content='Sherman&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Web' /><meta property='article:published_time' content='2021-08-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-08-23T00:00:00&#43;00:00'/><meta property='og:image' content='https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img15.jpg' />
+<meta name="twitter:title" content="如何在Ubuntu上给HTTP加密成HTTPS">
+<meta name="twitter:description" content="在本教程中，我们一起来学习如何使用 Certbot 在 Ubuntu 20.04 上获得 Nginx 的免费 SSL 证书，以及设置如何续订这个证书。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img15.jpg' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://ShermanXie1998.github.io/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/">
+                <img src="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img15_hud695364f957953335d1a70c09d93bd4f_6789_800x0_resize_q75_box.jpg"
+                        srcset="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img15_hud695364f957953335d1a70c09d93bd4f_6789_800x0_resize_q75_box.jpg 800w, /p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img15_hud695364f957953335d1a70c09d93bd4f_6789_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="364" 
+                        loading="lazy"
+                        alt="Featured image of post 如何在Ubuntu上给HTTP加密成HTTPS" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/nginx/" >
+                Nginx
+            </a>
+        
+            <a href="/categories/https/" >
+                HTTPS
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/">如何在Ubuntu上给HTTP加密成HTTPS</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        在本教程中，我们一起来学习如何使用 Certbot 在 Ubuntu 20.04 上获得 Nginx 的免费 SSL 证书，以及设置如何续订这个证书。
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 23, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 min read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="准备工作">准备工作</h2>
+<p>要学习本教程，我们需要先准备：</p>
+<ul>
+<li>
+<p>有 sudo 的 root 用户权限，大家可根据《Ubuntu 120.04初始服务器设置》（撰写中，稍后上线）指南来配置自己的服务器。</p>
+</li>
+<li>
+<p>注册域名。本教程使用example.com作为范例。大家可以在阿里云购买一个域名，.com 域名一年60多块钱。</p>
+</li>
+<li>
+<p>为服务器设置了以下两个DNS记录。</p>
+<ul>
+<li>example.com 的A记录指向服务器公网IP</li>
+<li><a class="link" href="http://www.example.com"  target="_blank" rel="noopener"
+    >www.example.com</a>的A记录指向服务器公网IP</li>
+</ul>
+</li>
+<li>
+<p>请确保一个域对应一个server block。在本教程中，我们使用/etc/nginx/sites-available/example.com 来作为操作对象。</p>
+</li>
+</ul>
+<h2 id="安装-nginx">安装 Nginx</h2>
+<p>由于 Nginx 可以从 ubuntu 软件源中获得，因此我们可以使用 apt 来安装 Nginx。</p>
+<p>我们可以使用以下命令安装 Nginx 到 Ubuntu 中。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo apt update
+$ sudo apt install nginx
+</code></pre></div><p>选择 Y 来开始安装，apt 会帮你把 Nginx 和它所必备的依赖安装到我们的服务器中。</p>
+<hr>
+<h2 id="调整防火墙">调整防火墙</h2>
+<p>在测试 Nginx 之前，我们需要调整防火墙，让他允许 Nginx 服务通过。Nginx ufw 在安装时会把他自身注册成为服务。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ufw app list
+</code></pre></div><p>输出结果:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">kalasearch@chuan-server:~$ sudo ufw app list
+Available applications:
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  OpenSSH
+</code></pre></div><p>你可以看到 Nginx 提供了三个配置文件：</p>
+<ul>
+<li>Nginx Full
+<ul>
+<li>开端口80 正常，未加密的网络流量</li>
+<li>端口443 TLS / SSL加密的流量</li>
+</ul>
+</li>
+<li>Nginx HTTP
+<ul>
+<li>仅打开端口80 正常，未加密</li>
+</ul>
+</li>
+<li>Nginx HTTPS
+<ul>
+<li>仅打开端口443 TLS / SSL加密</li>
+</ul>
+</li>
+</ul>
+<p>我们使用 Nginx HTTPS 来做本教程演示。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ufw allow &#39;Nginx HTTPS&#39;
+</code></pre></div><p>我们用以下命令来查看更改结果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ufw status
+</code></pre></div><p>我们可以在输出结果中看到</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere                  
+Nginx HTTP                 ALLOW       Anywhere                  
+OpenSSH (v6)               ALLOW       Anywhere (v6)             
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)
+</code></pre></div><hr>
+<h2 id="管理-nginx">管理 Nginx</h2>
+<p>现在，您已启动并运行了Web服务器，让我们回顾一些基本的管理命令。</p>
+<p>上一步，我们已经启动起来 Web 服务器了。接下来，让我们来学习一下 Nginx 的基本命令。</p>
+<p>要停止Web服务器，输入：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo systemctl stop nginx
+</code></pre></div><p>要在停止时，启动Web服务器，键入：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo systemctl start nginx
+</code></pre></div><p>要停止，然后再次启动该服务，键入：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo systemctl restart nginx
+</code></pre></div><p>如果我们只是修改配置，Nginx 可以在不终端的情况下热加载。我们可以键入：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo systemctl reload nginx
+</code></pre></div><h2 id="设置服务器块server-block">设置服务器块（Server block）</h2>
+<p>使用Nginx Web服务器时，服务器块（类似于Apache中的虚拟主机）可用于封装配置详细信息，并在一台服务器中托管多个域。我们将建立一个名为 example.com 的域，但我们可以用自己的域名替换它。</p>
+<p>在 Ubuntu 上的 Nginx 默认情况下启用了一个服务器块（server block），服务器块的配置是为给服务器的目录提供地址 /var/www/html。尽管这对于单个站点非常有效，但是如果我们在服务器上托管多个站点，则可能变很臃肿。让我们给/var/www/html目录添加上分站点目录。</p>
+<p>比如我们的网站是 example.com ，那我们创建一个对应的目录 example.com 目录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo mkdir -p /var/www/example.com/html
+</code></pre></div><p>接下来，使用$USER环境变量分配目录的所有权：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo chown -R $USER:$USER /var/www/example.com/html
+</code></pre></div><p>如果我们没有修改自己的umask值，那么 Web 根目录的权限应该正确，我们可以通过输入以下命令来确认：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo chmod -R 755 /var/www/example.com
+</code></pre></div><p>接下来，让我们来编辑index.html 可以使用 nano 编辑器或其他你用这顺手的编辑器：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ nano /var/www/example.com/html/index.html
+</code></pre></div><p>在其中，添加以下示例HTML：</p>
+<p>/var/www/example.com/html/index.html</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Welcome to Example.com!<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Success!  The example.com server block is working!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><p>完成后保存并关闭文件。</p>
+<p>接下来我们为 Nginx 来创建一个服务器块。与直接修改默认配置文件不同，我们在以下位置创建一个新文件：<code>/etc/nginx/sites-available/example.com</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo nano /etc/nginx/sites-available/example.com
+</code></pre></div><p>粘贴到以下内容添加到文件中，这个块的配置与默认块的配置相似，但针对我们的新目录和域名进行了更新：</p>
+<p>/etc/nginx/sites-available/example.com</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">server {
+        listen 80;
+        listen [::]:80;
+        root /var/www/example.com/html;
+        index index.html index.htm index.nginx-debian.html;
+        server_name example.com www.example.com;
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+</code></pre></div><p>接下来，让我们通过在<code>sites-enabled</code>目录新建一个链接，好让 Nginx 在启动过程中会读取这个目录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+</code></pre></div><p>现在已启用并配置了两个服务器块，以及基于它们的<code>listen</code>和<code>server_name</code>指令响应请求：</p>
+<ul>
+<li><code>example.com:</code> 将会响应<code>example.com</code> 和 <code>www.example.com</code>的请求</li>
+<li><code>default</code>: 将会响应 80 端口的请求，以及不能匹配到两个服务器块上的请求</li>
+</ul>
+<p>为避免可能由于添加其他服务器名称而引起的哈希存储区内存问题，有必要调整<code>/etc/nginx/nginx.conf</code>文件中的单个值。</p>
+<p>打开文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo nano /etc/nginx/nginx.conf
+</code></pre></div><p>找到<code>server_names_hash_bucket_size</code>指令并删除<code>#</code>符号：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">...
+http {
+    ...
+    server_names_hash_bucket_size 64;
+    ...
+}
+...
+</code></pre></div><p>完成后保存并关闭文件。</p>
+<p>接下来，测试以确保我们在 Nginx 文件中的改动，没有任何问题：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">sudo nginx -t
+</code></pre></div><p>如果没有任何问题，请重新启动 Nginx：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">sudo systemctl restart nginx
+</code></pre></div><p><figure style="flex-grow: 177; flex-basis: 426px">
+		<a href="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img16.jpg" data-size="640x360"><img src="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img16.jpg"
+				srcset="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img16_hu604cb190aad1f282ac7e3656c199bce9_6002_480x0_resize_q75_box.jpg 480w, /p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/8-23-img16_hu604cb190aad1f282ac7e3656c199bce9_6002_1024x0_resize_q75_box.jpg 1024w"
+				width="640"
+				height="360"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>有关要考虑的主题列表，请参阅themes.gohugo.io。本快速入门使用漂亮的Ananke 主题。</p>
+<p>首先，从 GitHub 下载主题并将其添加到您网站的themes目录中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ cd quickstart
+$ git init
+$ git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+</code></pre></div><p>然后，将主题添加到站点配置中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ echo theme = \&#34;ananke\&#34; &gt;&gt; config.toml
+</code></pre></div><hr>
+<h2 id="安装certbot">安装Certbot</h2>
+<p>首先我们得现在服务器上安装 Certbot</p>
+<p>安装Certbot 及 Nginx 插件 <code>apt</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo apt install certbot python3-certbot-nginx
+</code></pre></div><p>选择 Y 后开始安装，安装完毕我们就可以使用 Certbot 了。</p>
+<p>接下来我们要验证一下 Certbot 是否能为Nginx 自动配置 SSL。</p>
+<h2 id="让我们的防火墙允许https">让我们的防火墙允许HTTPS</h2>
+<p>需要先允许ufw使用</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ufw enable
+</code></pre></div><p>我们来查看一下当前状态。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ufw status
+</code></pre></div><p>输出结果如果类似下面这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere                  
+Nginx HTTP                 ALLOW       Anywhere                  
+OpenSSH (v6)               ALLOW       Anywhere (v6)             
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)
+</code></pre></div><p>说明防火墙允许HTTPS通信。但如果你的服务器不允许，那么请执行以下命令。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ufw allow &#39;Nginx Full&#39;
+$ sudo ufw delete allow &#39;Nginx HTTP&#39;
+</code></pre></div><p>然后再让我们查看一下状态的变化。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ufw status
+</code></pre></div><p>输出结果变为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+Nginx Full                 ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+Nginx Full (v6)            ALLOW       Anywhere (v6)
+</code></pre></div><p>在此处我们要注意把22,443,80几个端口加入白名单,不然可能后续会导致你进不去ssh</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo ufw allow 22
+$ sudo ufw allow 80
+$ sudo ufw allow 443
+</code></pre></div><p>好的，接下来，让我们运行 Certbot 来获取我们的安全证书吧。</p>
+<p><figure style="flex-grow: 161; flex-basis: 388px">
+		<a href="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/Letsencrypt.jpg" data-size="583x360"><img src="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/Letsencrypt.jpg"
+				srcset="/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/Letsencrypt_hubdbdcdad531b8dc603d1a573b1901fad_14421_480x0_resize_q75_box.jpg 480w, /p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/Letsencrypt_hubdbdcdad531b8dc603d1a573b1901fad_14421_1024x0_resize_q75_box.jpg 1024w"
+				width="583"
+				height="360"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<h2 id="获取-ssl-证书">获取 SSL 证书</h2>
+<p>Certbot 提供了获得 SSL 的方法。Nginx Plugins（插件） 帮助我们在必要的时候重新加载配置文件。让我们来开启这个插件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">$ sudo certbot --nginx -d example.com -d www.example.com
+</code></pre></div><p><code>certbot</code>与<code>--nginx</code> 插件一起运行，<code>-d</code>用于指定我们希望获得证书的域名。</p>
+<p>如果我们是第一次运行，那么 <code>Certbot</code> 将提示我们输入邮箱并阅读服务条款。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">Invalid email address: .
+Enter email address (used for urgent renewal and security notices)
+
+If you really want to skip this, you can run the client with
+--register-unsafely-without-email but make sure you then backup your account key
+from /etc/letsencrypt/accounts
+
+ (Enter &#39;c&#39; to cancel): nginx@kalasearch.com
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
+agree in order to register with the ACME server at
+https://acme-v02.api.letsencrypt.org/directory
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(A)gree/(C)ancel:
+</code></pre></div><p>如果这是您第一次运行certbot，将提示您输入电子邮件地址并同意服务条款。</p>
+<p>完成此操作后，certbot开始与 Let&rsquo;s Encrypt 服务器通信，然后开始验证我们是否是这个域名的真正拥有者。</p>
+<p>如果成功，certbot 会继续询问我们如何配置HTTPS。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: No redirect - Make no further changes to the webserver configuration.
+2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
+new sites, or if you&#39;re confident your site works on HTTPS. You can undo this
+change by editing your web server&#39;s configuration.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then [enter] (press &#39;c&#39; to cancel):
+</code></pre></div><p>这个我建议选择2，然后回车。配置文件就会更新，Nginx 也会重新加载。<code>Certbot</code> 会显示一条消息，告诉我们整个过程已经完成，证书存储在服务器的什么位置上：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/example.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/example.com/privkey.pem
+   Your cert will expire on 2020-11-01. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot again
+   with the &#34;certonly&#34; option. To non-interactively renew *all* of
+   your certificates, run &#34;certbot renew&#34;
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let&#39;s Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+</code></pre></div><p>我们的证书已经下载并已经加载成功。我们可以使用 https:// 来进行访问。如果访问成功并且浏览器地址栏前面已经出现带锁的标志，那么说明我们的网站已经获得A级保护。</p>
+<p>接下来，我们学习如何续订这个安全证书。</p>
+<h2 id="验证-certbot-自动续订">验证 Certbot 自动续订</h2>
+<p>我们获得的加密证书只有 90 天有效期，但不用担心，<code>Certbot</code>会帮我们解决续订问题，它会每天运行两次<code>systemd</code>监测程序来检查域名证书是否快到期。如果域名证书在近 30 天到期，它会自动续订这些域名的证书。</p>
+<p>我们可以输入以下命令来检查<code>systemctl</code>的状态：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">sudo systemctl status certbot.timer
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">kalasearch@chuan-server:~$ sudo systemctl status certbot.timer
+
+● certbot.timer - Run certbot twice daily
+     Loaded: loaded (/lib/systemd/system/certbot.timer; enabled; vendor preset: enabled)
+     Active: active (waiting) since Sat 2020-08-01 03:37:47 UTC; 46min ago
+    Trigger: Sat 2020-08-01 12:54:45 UTC; 8h left
+   Triggers: ● certbot.service
+
+Aug 01 03:37:47 chuan-server systemd[1]: Started Run certbot twice daily.
+</code></pre></div><p>要测试域名证书的续订过程，我们可以输入以下命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">sudo certbot renew --dry-run
+</code></pre></div><p>如果输出结果没有任何错误，则表明一切就绪。如果在未来，续订证书发生问题，那么也不用担心，Let&rsquo;s Encrypt 会通过前面几步中我们留的邮箱联系我们，通知我们域名证书即将过期。</p>
+<h2 id="总结">总结</h2>
+<p>在本教程中，我们学习了如何安装 Let&rsquo;s Encrypt 的客户端 certbot。以及如何使用certbot 为我们的域名下载了 SSL 证书。以及学习了如何设置 certbot 让它自动帮我们更新证书。如果你对使用 Certbot 还有疑问，可以在本文下面留言，也可以查看它的<a class="link" href="https://certbot.eff.org/docs/"  target="_blank" rel="noopener"
+    ><code>官方文档</code></a>。</p>
+<h2 id="原文">原文</h2>
+<ul>
+<li><a class="link" href="https://kalasearch.cn/community/tutorials/how-to-install-nginx-on-ubuntu-20-04/"  target="_blank" rel="noopener"
+    >如何在 Ubuntu 20.04 中安装和配置 Nginx</a></li>
+<li><a class="link" href="https://kalasearch.cn/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04/"  target="_blank" rel="noopener"
+    >如何在 Ubuntu20.04 上使用 Let’s Encrypt 给 Nginx 加密（SSL</a></li>
+</ul>
+<h2 id="image-share">Image Share</h2>
+<p><img src="https://dashi.veterinerburada.com/Images/8-23-img12.jpg" alt="Photo by Florian Klauer on Unsplash"  /> 
+<img src="https://dashi.veterinerburada.com/Images/8-23-img13.jpg" alt="Photo by Luca Bravo on Unsplash"  /></p>
+<p>相册语法来自 <a class="link" href="https://typlog.com/"  target="_blank" rel="noopener"
+    >Typlog</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/web/">Web</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Sherman's Blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Sherman&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.1.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#准备工作">准备工作</a></li>
+    <li><a href="#安装-nginx">安装 Nginx</a></li>
+    <li><a href="#调整防火墙">调整防火墙</a></li>
+    <li><a href="#管理-nginx">管理 Nginx</a></li>
+    <li><a href="#设置服务器块server-block">设置服务器块（Server block）</a></li>
+    <li><a href="#安装certbot">安装Certbot</a></li>
+    <li><a href="#让我们的防火墙允许https">让我们的防火墙允许HTTPS</a></li>
+    <li><a href="#获取-ssl-证书">获取 SSL 证书</a></li>
+    <li><a href="#验证-certbot-自动续订">验证 Certbot 自动续订</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#原文">原文</a></li>
+    <li><a href="#image-share">Image Share</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

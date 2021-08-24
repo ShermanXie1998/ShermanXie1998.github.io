@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Microsoft store package on Sherman&#39;s Blog</title>
+    <link>https://ShermanXie1998.github.io/categories/microsoft-store-package/</link>
+    <description>Recent content in Microsoft store package on Sherman&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/categories/microsoft-store-package/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UWP上传第三方包的打包方式</title>
+      <link>https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/</guid>
+      <description>引言 在阅读本文前,请先确定您使用开发是基于Visual studio 2019的UWP平台.
+1.创建证书 打开你的Package文件,点击publisher的选择证书,然后点击创建新证书.
+这里只需要输入Publisher Common Name,先不要填,往下看.
+ 2.找到Publisher Common Name. 首先我们需要打开微软的合作中心,请确保你拥有一个开发者账号,如果没有的话你是进不到这个网页里的.
+你需要先点击概述,创建新应用或选择你已经创建好需要发布的应用.然后点击产品管理里的产品标识.
+在此界面上只需要把&amp;quot;包/标识/发行商&amp;quot;里CN后面的一串数字复制,然后再粘贴到Visual Studio内的Publisher Common Name内即可.这样你的信任证书就已经生成了.
+ 3.如何进行打包 首先,你需要点击Project-&amp;gt;项目属性-&amp;gt;Bulid,把Platform target选择到你所需要的平台,开启.Net本地链与优化代码,进行此步骤的原因是要生成用于商店发布的misxupload文件.
+然后右键你的项目,点击publish-&amp;gt;创建APP package
+选择第二个选项,然后登录你的账户后选择你要发布到Microsoft store的Identity.更改你所需的APP版本号与所需平台后即可点击创建.
+  在此处要注意的是,发布版本只能越来越大,不能在商店上发布一个高版本后再降低版本号.
+  另外如果你使用了第三方的依赖,一定要确定可以在你所打包的平台(x86/x64)下可以运行,不然也不会打包成功.
+   4.上传至商店 在你编译软件的目录内寻找AppPackages的文件,打开后找到后缀为Msixupload的文件.然后回到微软的合作中心页面,在应用程序概述内找到提交-&amp;gt;程序包,然后把你刚生成的Msixupload文件上传上去.这样关于UWP第三方文件的打包与上传就完成了.
+ 5.UWP上架失败因为没有添加隐私策略问题 在使用 UWP 上架之前需要经过微软的审核，在美国很看重个人隐私，因此需要在两个地方都填写上隐私策略。第一个是应用商店里面，第二个是应用程序里面 如果是个人开发者，我的推荐是在 github 或 gitee 创建一个叫隐私策略的文件，复制这个链接填写在应用商店管理的属性上，请看下图
+如何写隐私策略请看 win10 uwp 隐私声明 注意修改软件名然后打开代码，在代码里面添加一个叫 PrivacyPolicyURL 的静态属性，将隐私策略放在这个属性，然后写一个文本超链接用于打开
+public static class PrivacyPolicy { public static string PrivacyPolicyURL { get; } = &amp;#34;https://github.com/lindexi/UWP/blob/master/uwp/src/%E9%9A%9 0%E7%A7%81%E7%AD%96%E7%95%A5/Privacy%20Policy.md&amp;#34;; } 在界面添加超链接</description>
+    </item>
+    
+  </channel>
+</rss>

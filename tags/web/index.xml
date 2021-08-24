@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on Sherman&#39;s Blog</title>
+    <link>https://ShermanXie1998.github.io/tags/web/</link>
+    <description>Recent content in Web on Sherman&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用Hugo创建个人博客方式</title>
+      <link>https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/</guid>
+      <description>引言 使用美丽的 Ananke 主题创建一个 Hugo 站点。添加超时和断路器等等，所有这些功能都不必更改应用程序本身的代码。
+此快速入门macOS在示例中使用。有关如何在其他操作系统上安装 Hugo 的说明，请参阅安装。
+建议安装 Git来运行本教程。
+对于其他学习 Hugo 的方法，如书本或视频教程，请参阅外部学习资源页面。
+Install Hugo 在 macOS、Windows、Linux、OpenBSD、FreeBSD 以及任何可以运行 Go 编译器工具链的机器上安装 Hugo。
+ 适用于 x64、i386 和 ARM 架构的 macOS (Darwin) Windows Linux OpenBSD FreeBSD   Chocolatey (Windows) 如果您在 Windows 机器上并使用Chocolatey进行包管理，则可以使用以下单行安装 Hugo：
+$ choco install hugo -confirm 或者，如果您需要“扩展”Sass/SCSS 版本：
+$ choco install hugo-extended -confirm  Create a New Site $ hugo new site quickstart 创建名为quickstart的文件夹
+ Add a Theme 有关要考虑的主题列表，请参阅themes.gohugo.io。本快速入门使用漂亮的Ananke 主题。</description>
+    </item>
+    
+    <item>
+      <title>如何在Ubuntu上给HTTP加密成HTTPS</title>
+      <link>https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/</link>
+      <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ShermanXie1998.github.io/p/%E5%A6%82%E4%BD%95%E5%9C%A8ubuntu%E4%B8%8A%E7%BB%99http%E5%8A%A0%E5%AF%86%E6%88%90https/</guid>
+      <description>准备工作 要学习本教程，我们需要先准备：
+  有 sudo 的 root 用户权限，大家可根据《Ubuntu 120.04初始服务器设置》（撰写中，稍后上线）指南来配置自己的服务器。
+  注册域名。本教程使用example.com作为范例。大家可以在阿里云购买一个域名，.com 域名一年60多块钱。
+  为服务器设置了以下两个DNS记录。
+ example.com 的A记录指向服务器公网IP www.example.com的A记录指向服务器公网IP    请确保一个域对应一个server block。在本教程中，我们使用/etc/nginx/sites-available/example.com 来作为操作对象。
+  安装 Nginx 由于 Nginx 可以从 ubuntu 软件源中获得，因此我们可以使用 apt 来安装 Nginx。
+我们可以使用以下命令安装 Nginx 到 Ubuntu 中。
+$ sudo apt update $ sudo apt install nginx 选择 Y 来开始安装，apt 会帮你把 Nginx 和它所必备的依赖安装到我们的服务器中。
+ 调整防火墙 在测试 Nginx 之前，我们需要调整防火墙，让他允许 Nginx 服务通过。Nginx ufw 在安装时会把他自身注册成为服务。
+$ sudo ufw app list 输出结果:</description>
+    </item>
+    
+  </channel>
+</rss>
