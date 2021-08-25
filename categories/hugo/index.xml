@@ -6,7 +6,24 @@
     <description>Recent content in Hugo on Sherman&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>利用GitHub Pages搭建个人博客</title>
+      <link>https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+      <description>引言  技术写作工具|Github + Markdown 的新轻型技术写作模式速览 技术文档方案|Github + Markdown 的深度实践解析  新建一个GitHub库   注册一个 GitHub 账号。如果你已有账号，直接登录。如果你没有账号，注册并登录。
+  打开 GitHub Pages 官网，浏览并了解 User or organization site 部分对应的操作步骤。 GitHub Pages: https://pages.github.com
+  新建一个 GitHub repository，库名为 username.http://github.io，username 即你的 GitHub 账号 username。新建 repository：github.com/new 
+   安装Hugo并新建Hugo网站 此部分网上的方法很多,因此不过多赘述.
+Hugo安装指南 https://gohugo.io/getting-started/installing/
+ 构建Hugo网站 在Hugo网站文件夹的根目录下,执行hugo命令来构建
+$ hugo # 构建你的Hugo网站,默认将静态站点保存到&amp;#34;public&amp;#34;目录 注意: Hugo会将构建的网站内容默认保存至网站根目录的 public/文件夹中.
+ 将网站文件夹转换为 Git 库。 1.进入 XXX/public目录,初始化Git库.
+$ cd public $ git init #初始化Git库 2.</description>
+    </item>
+    
     <item>
       <title>使用Hugo创建个人博客方式</title>
       <link>https://ShermanXie1998.github.io/p/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%96%B9%E5%BC%8F/</link>

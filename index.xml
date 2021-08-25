@@ -6,7 +6,139 @@
         <description>Recent content on Sherman&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>利用GitHub Pages搭建个人博客</title>
+        <link>https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+        <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+        <description>&lt;img src="https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img12.jpg" alt="Featured image of post 利用GitHub Pages搭建个人博客" /&gt;&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://mp.weixin.qq.com/s/1lRln5p-Qn97ygJ0pmkcVA&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;技术写作工具|Github + Markdown 的新轻型技术写作模式速览&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://mp.weixin.qq.com/s/VXSeeazlDnmeMTx7Kq0XvA&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;技术文档方案|Github + Markdown 的深度实践解析&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;新建一个github库&#34;&gt;新建一个GitHub库&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;注册一个 GitHub 账号。如果你已有账号，直接登录。如果你没有账号，注册并登录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;打开 GitHub Pages 官网，浏览并了解 User or organization site 部分对应的操作步骤。
+GitHub Pages: &lt;a class=&#34;link&#34; href=&#34;https://pages.github.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://pages.github.com&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;新建一个 GitHub repository，库名为 username.http://github.io，username 即你的 GitHub 账号 username。新建 repository：github.com/new
+&lt;figure style=&#34;flex-grow: 128; flex-basis: 307px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-24-img1.jpg&#34; data-size=&#34;720x562&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-24-img1.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-24-img1_hua3def59d4b83d7395cdc30724d6334bd_41474_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-24-img1_hua3def59d4b83d7395cdc30724d6334bd_41474_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;720&#34;
+				height=&#34;562&#34;
+				loading=&#34;lazy&#34;
+				&gt;
+		&lt;/a&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;安装hugo并新建hugo网站&#34;&gt;安装Hugo并新建Hugo网站&lt;/h2&gt;
+&lt;p&gt;此部分网上的方法很多,因此不过多赘述.&lt;/p&gt;
+&lt;p&gt;Hugo安装指南 &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/getting-started/installing/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://gohugo.io/getting-started/installing/&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;构建hugo网站&#34;&gt;构建Hugo网站&lt;/h2&gt;
+&lt;p&gt;在Hugo网站文件夹的根目录下,执行hugo命令来构建&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ hugo    # 构建你的Hugo网站,默认将静态站点保存到&amp;#34;public&amp;#34;目录
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;注意&lt;/code&gt;: Hugo会将构建的网站内容默认保存至网站根目录的 &lt;code&gt;public/&lt;/code&gt;文件夹中.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;将网站文件夹转换为-git-库&#34;&gt;将网站文件夹转换为 Git 库。&lt;/h2&gt;
+&lt;p&gt;1.进入 XXX/public目录,初始化Git库.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ cd public  
+$ git init  #初始化Git库
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2.查看public目录下的文件,会发现多了.git文件.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$ ls -a 显示所有文件和目录列表, 包含隐藏文件
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;将git本地库关联至远程库&#34;&gt;将Git本地库关联至远程库&lt;/h2&gt;
+&lt;p&gt;1.在 XXX/public目录下,为Git本地库添加远程库&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;git remote add origin git@github.com:XXX/XXX.github.io.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2.查看config文件.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;cat .git/config  # 显示 config 信息。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上述命令返回结果如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+    ignorecase = true
+    precomposeunicode = true
+[remote &amp;#34;origin&amp;#34;]
+    url = git@github.com:lilin90/lilin90.github.io.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果 [remote &amp;ldquo;origin&amp;rdquo;] 信息正常显示，说明你的 Git 本地库已成功关联至远程库。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;提交你的修改至本地库&#34;&gt;提交你的修改至本地库.&lt;/h2&gt;
+&lt;p&gt;在 lilian-blog/public 目录下，通过 commit 提交修改，并写一个 commit message 来简洁描述你的修改。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;git status  # 查看当前修改状态。
+git add .  # 添加所有修改过的文件。你也可以只添加某个文件。
+git commit -m &amp;#34;Add a new post&amp;#34;  # &amp;#34;Add a new post&amp;#34; 是 commit message.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;将你的修改推至远程库&#34;&gt;将你的修改推至远程库。&lt;/h2&gt;
+&lt;p&gt;在 lilian-blog/public 目录下，将修改推至远程库。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;恭喜！现在你已经走完了全程，拥有了一个自己构建的博客网站。&lt;/p&gt;
+&lt;p&gt;我的博客地址是：https://lilin90.github.io&lt;/p&gt;
+&lt;p&gt;如果你想使用 HTTPS 以防止其他人窥探或篡改网站流量，在 GitHub 上打开相应的库，点击 Settings 勾选 Enforce HTTPS 即可。&lt;/p&gt;
+&lt;p&gt;顺便说一下，我购买了个域名 &lt;a class=&#34;link&#34; href=&#34;https://lilianlee.me&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://lilianlee.me&lt;/a&gt;，并将其关联到了默认的 URL &lt;a class=&#34;link&#34; href=&#34;https://lilin90.github.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://lilin90.github.io&lt;/a&gt;。所以如果你访问 &lt;a class=&#34;link&#34; href=&#34;https://lilin90.github.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://lilin90.github.io&lt;/a&gt;，会自动跳转至 &lt;a class=&#34;link&#34; href=&#34;https://lilianlee.me&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://lilianlee.me&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;接下来之后如何添加一篇博客&#34;&gt;接下来：之后如何添加一篇博客&lt;/h2&gt;
+&lt;p&gt;之后如果要添加一篇博客，使用如下几步即可：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新建一篇文章，编辑内容。&lt;/li&gt;
+&lt;li&gt;本地预览网站呈现效果。&lt;/li&gt;
+&lt;li&gt;构建 Hugo 网站。&lt;/li&gt;
+&lt;li&gt;提交修改至 Git 本地库。&lt;/li&gt;
+&lt;li&gt;将修改推至远程库。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;原文&#34;&gt;原文&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/57361697&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;如何利用 GitHub Pages 和 Hugo 轻松搭建个人博客？&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;image-share&#34;&gt;Image Share&lt;/h2&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 66; flex-basis: 160px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img12.jpg&#34; data-size=&#34;1080x1620&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img12.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img12_hu28e1bbbeb17e57911039f31275b038b2_392724_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img12_hu28e1bbbeb17e57911039f31275b038b2_392724_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;1080&#34;
+				height=&#34;1620&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;Photo by Florian Klauer on Unsplash&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;Photo by Florian Klauer on Unsplash&lt;/figcaption&gt;
+		
+	&lt;/figure&gt; 
+&lt;figure style=&#34;flex-grow: 150; flex-basis: 360px&#34;&gt;
+		&lt;a href=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img10.jpg&#34; data-size=&#34;1080x720&#34;&gt;&lt;img src=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img10.jpg&#34;
+				srcset=&#34;https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img10_hu4db93a3cebc882ce2bba2c98dc210e0e_171158_480x0_resize_q75_box.jpg 480w, https://ShermanXie1998.github.io/p/%E5%88%A9%E7%94%A8github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/8-23-img10_hu4db93a3cebc882ce2bba2c98dc210e0e_171158_1024x0_resize_q75_box.jpg 1024w&#34;
+				width=&#34;1080&#34;
+				height=&#34;720&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;Photo by Luca Bravo on Unsplash&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;Photo by Luca Bravo on Unsplash&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;相册语法来自 &lt;a class=&#34;link&#34; href=&#34;https://typlog.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Typlog&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>UWP上传第三方包的打包方式</title>
         <link>https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/</link>
         <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
