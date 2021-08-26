@@ -6,7 +6,26 @@
     <description>Recent content in UWP on Sherman&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/categories/uwp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/categories/uwp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UWP入门教学</title>
+      <link>https://ShermanXie1998.github.io/p/uwp%E5%85%A5%E9%97%A8%E6%95%99%E5%AD%A6/</link>
+      <pubDate>Thu, 26 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ShermanXie1998.github.io/p/uwp%E5%85%A5%E9%97%A8%E6%95%99%E5%AD%A6/</guid>
+      <description>引言 本文章主要介绍,如何建立UWP,以及如何做一个比较简单的交互页面,我默认读者已经下载了Visual studio 2019,并且会使用C#与XAML语言.
+创建一个UWP项目 打开Visual studio 2019,点击Create a new project按钮.
+在搜索栏里搜索UWP,把语言选择到C#,并点击下一步,项目名称与文件位置都可以自行设置,Target version选择19041,最低版本选择到17763.
+
+建成的UWP项目
+简单的介绍一下编译器的布局.最右边从上到下:
+ 整个项目空间 属性栏 项目依赖(这里主要是你后续添加一些第三方库的地方) Assets(这里主要放你的图片) App.xaml/App.xaml.cs 这个是整个项目最核心的文件,你要做全局的一些变量都可以加到这里面. Mainpage 默认情况下你的起始页面是此界面,但也可以在App.cs里更改. Package.appxmanifest 主要是修改打包信息的,包括信任证书,发布者ID,App名称等.   做一个简单的界面 这一节我们来做一个简单的界面,里面包括一些布局知识,一些基础控件.
+首先打开Mainpage.xaml,找到,这里我添加一个button按钮并居中,长300,高100,字体大小为30,水平居中,垂直居中.
+&amp;lt;Button x:Name=&amp;#34;Button1&amp;#34; Content=&amp;#34;Button&amp;#34; FontSize=&amp;#34;30&amp;#34; HorizontalAlignment=&amp;#34;Center&amp;#34; VerticalAlignment=&amp;#34;Center&amp;#34; Width=&amp;#34;300&amp;#34; Height=&amp;#34;100&amp;#34;/&amp;gt; 
+如果你想让他变得更好看一点,比如加一个圆角,把他的变成渐变色的背景,或者加一个边框.
+&amp;lt;Button x:Name=&amp;#34;Button1&amp;#34; Content=&amp;#34;Button&amp;#34; FontSize=&amp;#34;30&amp;#34; HorizontalAlignment=&amp;#34;Center&amp;#34; VerticalAlignment=&amp;#34;Center&amp;#34; Width=&amp;#34;300&amp;#34; Height=&amp;#34;100&amp;#34; CornerRadius=&amp;#34;50&amp;#34; BorderBrush=&amp;#34;#FFD46E98&amp;#34; BorderThickness=&amp;#34;3&amp;#34; &amp;gt; &amp;lt;Button.Background&amp;gt; &amp;lt;LinearGradientBrush EndPoint=&amp;#34;0.5,1&amp;#34; StartPoint=&amp;#34;0.5,0&amp;#34;&amp;gt; &amp;lt;GradientStop Color=&amp;#34;#FFD6A12E&amp;#34;/&amp;gt; &amp;lt;GradientStop Color=&amp;#34;#FF28B1CF&amp;#34; Offset=&amp;#34;1&amp;#34;/&amp;gt; &amp;lt;/LinearGradientBrush&amp;gt; &amp;lt;/Button.Background&amp;gt; &amp;lt;/Button&amp;gt;</description>
+    </item>
+    
     <item>
       <title>UWP上传第三方包的打包方式</title>
       <link>https://ShermanXie1998.github.io/p/uwp%E4%B8%8A%E4%BC%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F/</link>

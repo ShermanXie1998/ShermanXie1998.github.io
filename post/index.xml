@@ -6,7 +6,26 @@
     <description>Recent content in Posts on Sherman&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ShermanXie1998.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UWP入门教学</title>
+      <link>https://ShermanXie1998.github.io/p/uwp%E5%85%A5%E9%97%A8%E6%95%99%E5%AD%A6/</link>
+      <pubDate>Thu, 26 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ShermanXie1998.github.io/p/uwp%E5%85%A5%E9%97%A8%E6%95%99%E5%AD%A6/</guid>
+      <description>引言 本文章主要介绍,如何建立UWP,以及如何做一个比较简单的交互页面,我默认读者已经下载了Visual studio 2019,并且会使用C#与XAML语言.
+创建一个UWP项目 打开Visual studio 2019,点击Create a new project按钮.
+在搜索栏里搜索UWP,把语言选择到C#,并点击下一步,项目名称与文件位置都可以自行设置,Target version选择19041,最低版本选择到17763.
+
+建成的UWP项目
+简单的介绍一下编译器的布局.最右边从上到下:
+ 整个项目空间 属性栏 项目依赖(这里主要是你后续添加一些第三方库的地方) Assets(这里主要放你的图片) App.xaml/App.xaml.cs 这个是整个项目最核心的文件,你要做全局的一些变量都可以加到这里面. Mainpage 默认情况下你的起始页面是此界面,但也可以在App.cs里更改. Package.appxmanifest 主要是修改打包信息的,包括信任证书,发布者ID,App名称等.   做一个简单的界面 这一节我们来做一个简单的界面,里面包括一些布局知识,一些基础控件.
+首先打开Mainpage.xaml,找到,这里我添加一个button按钮并居中,长300,高100,字体大小为30,水平居中,垂直居中.
+&amp;lt;Button x:Name=&amp;#34;Button1&amp;#34; Content=&amp;#34;Button&amp;#34; FontSize=&amp;#34;30&amp;#34; HorizontalAlignment=&amp;#34;Center&amp;#34; VerticalAlignment=&amp;#34;Center&amp;#34; Width=&amp;#34;300&amp;#34; Height=&amp;#34;100&amp;#34;/&amp;gt; 
+如果你想让他变得更好看一点,比如加一个圆角,把他的变成渐变色的背景,或者加一个边框.
+&amp;lt;Button x:Name=&amp;#34;Button1&amp;#34; Content=&amp;#34;Button&amp;#34; FontSize=&amp;#34;30&amp;#34; HorizontalAlignment=&amp;#34;Center&amp;#34; VerticalAlignment=&amp;#34;Center&amp;#34; Width=&amp;#34;300&amp;#34; Height=&amp;#34;100&amp;#34; CornerRadius=&amp;#34;50&amp;#34; BorderBrush=&amp;#34;#FFD46E98&amp;#34; BorderThickness=&amp;#34;3&amp;#34; &amp;gt; &amp;lt;Button.Background&amp;gt; &amp;lt;LinearGradientBrush EndPoint=&amp;#34;0.5,1&amp;#34; StartPoint=&amp;#34;0.5,0&amp;#34;&amp;gt; &amp;lt;GradientStop Color=&amp;#34;#FFD6A12E&amp;#34;/&amp;gt; &amp;lt;GradientStop Color=&amp;#34;#FF28B1CF&amp;#34; Offset=&amp;#34;1&amp;#34;/&amp;gt; &amp;lt;/LinearGradientBrush&amp;gt; &amp;lt;/Button.Background&amp;gt; &amp;lt;/Button&amp;gt;</description>
+    </item>
+    
     <item>
       <title>UE5的黑科技探寻</title>
       <link>https://ShermanXie1998.github.io/p/ue5%E7%9A%84%E9%BB%91%E7%A7%91%E6%8A%80%E6%8E%A2%E5%AF%BB/</link>
@@ -117,18 +136,18 @@ $ sudo ufw app list 输出结果:</description>
     </item>
     
     <item>
-      <title>Markdown Syntax Guide</title>
-      <link>https://ShermanXie1998.github.io/p/markdown-syntax-guide/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      <title>Placeholder Text</title>
+      <link>https://ShermanXie1998.github.io/p/placeholder-text/</link>
+      <pubDate>Thu, 05 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://ShermanXie1998.github.io/p/markdown-syntax-guide/</guid>
-      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
+      <guid>https://ShermanXie1998.github.io/p/placeholder-text/</guid>
+      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Rich Content</title>
       <link>https://ShermanXie1998.github.io/p/rich-content/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 05 Aug 2021 00:00:00 +0000</pubDate>
       
       <guid>https://ShermanXie1998.github.io/p/rich-content/</guid>
       <description>&lt;p&gt;Hugo ships with several &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -137,18 +156,9 @@ $ sudo ufw app list 输出结果:</description>
     </item>
     
     <item>
-      <title>Placeholder Text</title>
-      <link>https://ShermanXie1998.github.io/p/placeholder-text/</link>
-      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://ShermanXie1998.github.io/p/placeholder-text/</guid>
-      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Math Typesetting</title>
       <link>https://ShermanXie1998.github.io/p/math-typesetting/</link>
-      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 03 Aug 2021 00:00:00 +0000</pubDate>
       
       <guid>https://ShermanXie1998.github.io/p/math-typesetting/</guid>
       <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
@@ -157,10 +167,19 @@ $ sudo ufw app list 输出结果:</description>
     <item>
       <title>Emoji Support</title>
       <link>https://ShermanXie1998.github.io/p/emoji-support/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
       
       <guid>https://ShermanXie1998.github.io/p/emoji-support/</guid>
       <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Markdown Syntax Guide</title>
+      <link>https://ShermanXie1998.github.io/p/markdown-syntax-guide/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ShermanXie1998.github.io/p/markdown-syntax-guide/</guid>
+      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
     </item>
     
   </channel>
